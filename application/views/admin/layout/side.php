@@ -23,13 +23,13 @@
                 <!-- Divider -->
                 <hr class="my-3">
                 <h6 class="navbar-heading p-0 text-muted">
-                    <span class="docs-normal">Menu Pegawai</span>
+                    <span class="docs-normal">Menu Praktek</span>
                 </h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>makanan">
-                            <i class="fa fa-utensils text-primary"></i>
-                            <span class="nav-link-text">Master</span>
+                            <i class="fa fa-laptop-medical text-primary"></i>
+                            <span class="nav-link-text">Master Teraphy</span>
                             <!-- makanan -->
                         </a>
                     </li>
@@ -39,6 +39,7 @@
                         <a class="nav-link" href="<?= base_url() ?>meja">
                             <i class="fa fa-table text-primary"></i>
                             <span class="nav-link-text">Manajemen Meja</span>
+                            <!-- manajemen meja -->
                         </a>
                     </li>
                 </ul>
@@ -46,26 +47,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>pembayaran">
                             <i class="fa fa-edit text-primary"></i>
-                            <span class="nav-link-text">Riwayat Pembayaran</span>
+                            <span class="nav-link-text">Riwayat Transaksi</span>
+                            <!-- riwayat pembayaran -->
                         </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>penjualan">
-                            <i class="fa fa-money-bill-wave text-primary"></i>
-                            <span class="nav-link-text">Data Penjualan</span>
+                            <i class="fa fa-users text-primary"></i>
+                            <span class="nav-link-text">Data Pasien</span>
+                            <!-- data penjualan -->
                         </a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+                <!-- <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>saran">
                             <i class="fa fa-envelope text-primary"></i>
                             <span class="nav-link-text">Kritik & Saran</span>
                         </a>
                     </li>
-                </ul>
+                </ul> -->
                 <?php
                 if ($this->session->userdata('jabatan') == "admin") {
                 ?>
@@ -98,7 +101,7 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- <ul class="navbar-nav">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="<?= base_url() ?>admin/daftar_pegawai">
                                 <i class="fa fa-people-carry text-primary"></i>
@@ -106,7 +109,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
+                    <!-- <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="<?= base_url() ?>saw">
                                 <i class="fa fa-trophy text-primary"></i>
