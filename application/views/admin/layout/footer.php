@@ -1,10 +1,10 @@
 <!-- Footer -->
-<footer class="footer pt-0">
+<div class="main-content" id="panel">
+<footer class="footer bg-primary pt-0">
     <div class="row align-items-center justify-content-lg-between">
         <div class="col-lg-6">
-            <div class="copyright text-center  text-lg-left  text-muted">
-                 &copy; 2023 | Ftr. Laura Tirta Sary, S.Ftr | RaTeraphy</a>
-                <!-- &copy; 2021 Bojonegoro Squad | Repost by <a href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a> -->
+            <div class="media-body  ml-2  d-none d-lg-block">
+                <span class="mb-0 text-sm  font-weight-bold" style="color: white;">&copy; 2023 | Ftr. Laura Tirta Sary, S.Ftr | RaTeraphy</span>
             </div>
         </div>
     </div>

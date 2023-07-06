@@ -19,7 +19,13 @@
             <div class="row">
               <div class="col">
                 <h5 class="card-title text-uppercase text-muted mb-0">Pemasukan Bulan Ini</h5>
-                <span class="h2 font-weight-bold mb-0">Rp. <?= number_format($total_pendapatan_bulan_ini->total_pendapatan_bulan_ini, 0, ',', '.') ?></span>
+                    <?php
+                    if(isset($total_pendapatan_bulan_ini->total_pendapatan_bulan_ini)){
+                        $pendapatan_bulanini = number_format($total_pendapatan_bulan_ini->total_pendapatan_bulan_ini, 0, ',', '.');?>
+                        <span class="h2 font-weight-bold mb-0">Rp. <?= $pendapatan_bulanini;?></span>
+                        <?php } else{ ?>
+                            <span class="h2 font-weight-bold mb-0">Rp. 0</span>
+                        <?php } ?> 
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -39,7 +45,14 @@
             <div class="row">
               <div class="col">
                 <h5 class="card-title text-uppercase text-muted mb-0">Pemasukan Hari Ini</h5>
-                <span class="h2 font-weight-bold mb-0">Rp. <?= number_format($total_pendapatan->total_pendapatan, 0, ',', '.')  ?></span>
+                <?php if(isset($total_pendapatan->total_pendapatan)) {
+                    $pemasukan_hariini = number_format($total_pendapatan->total_pendapatan, 0, ',', '.'); ?>
+                    <span class="h2 font-weight-bold mb-0">Rp. <?= $pemasukan_hariini; ?></span>
+                <?php } else { ?>
+                    <span class="h2 font-weight-bold mb-0">Rp. 0 </span>
+                    <?php } ?> 
+
+
               </div>
               <div class="col-auto">
                 <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
