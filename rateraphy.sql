@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2023 at 10:48 AM
+-- Generation Time: Jul 08, 2023 at 11:46 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_restoran`
+-- Database: `rateraphy`
 --
 
 -- --------------------------------------------------------
@@ -60,30 +60,6 @@ CREATE TABLE `gambar_menu` (
   `id_menu` int(11) NOT NULL,
   `gambar` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `gambar_menu`
---
-
-INSERT INTO `gambar_menu` (`id_gambar`, `id_menu`, `gambar`) VALUES
-(2, 2, '22092021172127mie-ayam.jpg'),
-(3, 2, '22092021174747miee2.jpg'),
-(5, 2, '22092021175050mi2asd.jpg'),
-(6, 1, '22092021180735Bakso_mi_bihun.jpg'),
-(7, 1, '220920211807421140357898.jpg'),
-(8, 8, '0610202109160311Jugosylicuadosquetequitanlaansiedadyteayudanabajardepeso.jpg'),
-(9, 8, '06102021091612Esjerukphotography.jpg'),
-(10, 7, '06102021091833Sips-KatieChrist.jpg'),
-(12, 7, '06102021091907EsTehSerai-LemongrassIceTea.jpg'),
-(14, 16, '06102021092328orange-coconutmilkshake.jpg'),
-(16, 16, '06102021092756024b5b71-b655-4e9b-9f7e-fc37ed0eb720.jpg'),
-(17, 16, '06102021092845TheBestStrawberryMilkshake-BakingMischief.jpg'),
-(19, 12, '06102021093111NasiGoreng(IndonesianFriedRice).jpg'),
-(20, 12, '06102021093206BrownRiceNasiGoreng(IndonesianFriedRice)IGeorgieEats.jpg'),
-(21, 13, '061020210934115d4481d7-66a4-4e4a-82f6-de49b246e92d.jpg'),
-(24, 13, '06102021093658SateKambingYangEmpuk.jpg'),
-(25, 15, '06102021093836SopBuntut_IndonesianOxtailSoup.jpg'),
-(26, 11, '06102021093956ResepSotoLamonganAsliJawaTimurDenganSuwiranAyamDanKuahKuning.jpg');
 
 -- --------------------------------------------------------
 
@@ -127,44 +103,7 @@ CREATE TABLE `meja` (
 --
 
 INSERT INTO `meja` (`id_meja`, `nomor_meja`, `kapasitas_meja`) VALUES
-(1, '1', 4),
-(3, '5', 10),
-(4, '3', 6),
-(5, '2', 2),
-(6, '4', 10),
-(8, '6', 20),
-(11, '7', 8),
-(12, '9', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `menu`
---
-
-CREATE TABLE `menu` (
-  `id_menu` int(11) NOT NULL,
-  `nama_menu` varchar(100) NOT NULL,
-  `detail_menu` text NOT NULL,
-  `kategori` varchar(50) NOT NULL,
-  `stok` varchar(50) NOT NULL DEFAULT 'Tersedia',
-  `harga` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `menu`
---
-
-INSERT INTO `menu` (`id_menu`, `nama_menu`, `detail_menu`, `kategori`, `stok`, `harga`) VALUES
-(1, 'Bakso', 'Bakso Daging', 'Makanan', 'Tersedia', 20000),
-(2, 'Mie Ayam', 'Topping Ayam, Topping Jamur ', 'Makanan', 'Tidak Tersedia', 15000),
-(7, 'Es Teh', 'Jasmine, Lychee, Oolong', 'Minuman', 'Tersedia', 8000),
-(8, 'Es Jeruk', 'Nipis, Lemon, Jeruk Asli', 'Minuman', 'Tersedia', 10000),
-(11, 'Soto Lamongan ', 'Dengan Topping ayam', 'Makanan', 'Tersedia', 15000),
-(12, 'Nasi Goreng', 'Jawa, Mawut, Seafood', 'Makanan', 'Tersedia', 25000),
-(13, 'Sate Daging', 'Ayam asli, Kambing, Sapi', 'Makanan', 'Tersedia', 25000),
-(15, 'Sop Buntut', 'Buntut Sapi', 'Makanan', 'Tersedia', 35000),
-(16, 'Milkshake', 'Coklat, Vanila, Greentea, Strawberry', 'Minuman', 'Tersedia', 15000);
+(14, '1', 2);
 
 -- --------------------------------------------------------
 
@@ -243,6 +182,28 @@ INSERT INTO `metode_pembayaran` (`id_metode`, `nama_merchant`, `atas_nama`, `kod
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pasien`
+--
+
+CREATE TABLE `pasien` (
+  `id_pasien` int(11) NOT NULL,
+  `nama_pasien` varchar(100) NOT NULL,
+  `alamat` text NOT NULL,
+  `umur` varchar(50) NOT NULL,
+  `nik` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pasien`
+--
+
+INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `alamat`, `umur`, `nik`) VALUES
+(24, 'Abiyyu Aqil', 'Perumahan STI PUSAT C01-C02', '18', 47561),
+(25, 'Laura', 'guntung', '26', 1231);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pegawai`
 --
 
@@ -310,68 +271,24 @@ CREATE TABLE `saran_kritik` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `saw_hasil`
+-- Table structure for table `teraphy`
 --
 
-CREATE TABLE `saw_hasil` (
-  `id` int(11) NOT NULL,
-  `tanggal_penghitungan` date NOT NULL,
-  `pegawai_terpilih` varchar(256) NOT NULL
+CREATE TABLE `teraphy` (
+  `id_teraphy` int(11) NOT NULL,
+  `nama_teraphy` varchar(100) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `kode` varchar(50) NOT NULL,
+  `harga` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `saw_hasil`
+-- Dumping data for table `teraphy`
 --
 
-INSERT INTO `saw_hasil` (`id`, `tanggal_penghitungan`, `pegawai_terpilih`) VALUES
-(4, '2021-10-23', 'Riza Zulfahnur'),
-(7, '2021-10-24', 'Diego'),
-(8, '2021-11-14', 'Ardan Anjung');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `saw_kriteria`
---
-
-CREATE TABLE `saw_kriteria` (
-  `id` int(11) NOT NULL,
-  `nama_kriteria` varchar(256) NOT NULL,
-  `penjelasan_kriteria` text NOT NULL,
-  `bobot_kriteria` varchar(10) NOT NULL,
-  `kategori_bobot` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `saw_kriteria`
---
-
-INSERT INTO `saw_kriteria` (`id`, `nama_kriteria`, `penjelasan_kriteria`, `bobot_kriteria`, `kategori_bobot`) VALUES
-(1, 'Disiplin', 'Menilai ketaatan hadir saat kerja. Range Nilai 10-90. Semakin banyak nilai maka semakin disiplin pegawai tsb.', '0.25', 'Benefit'),
-(2, 'Kerja Sama', 'Menilai tingkat kemampuan bekerjasama dengan atasan atau rekan kerja dalam melaksanakan tugas. Range Nilai 10-90.', '0.15', 'Benefit'),
-(4, 'Komplain Pengunjung', 'Menilai tingkat komplain dari pengunjung untuk pegawai Range 10-50', '0.2', 'Cost'),
-(5, 'Etika Kerja', 'Menilai hubungan baik antar pegawai, customer atau pun atasan. Range 10-50.', '0.25', 'Benefit');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `saw_pegawai`
---
-
-CREATE TABLE `saw_pegawai` (
-  `id` int(11) NOT NULL,
-  `nama_pegawai` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `saw_pegawai`
---
-
-INSERT INTO `saw_pegawai` (`id`, `nama_pegawai`) VALUES
-(1, 'Ardan Anjung'),
-(2, 'Riza Zulfahnur'),
-(3, 'Dina Lisuardi'),
-(4, 'Yuni Kurnia ');
+INSERT INTO `teraphy` (`id_teraphy`, `nama_teraphy`, `deskripsi`, `kode`, `harga`) VALUES
+(20, 'Assesment', 'Assesment teraphy', 'as', 1214124),
+(22, 'UPS', 'dasdas', 'uip', 4124124);
 
 -- --------------------------------------------------------
 
@@ -423,12 +340,6 @@ ALTER TABLE `meja`
   ADD PRIMARY KEY (`id_meja`);
 
 --
--- Indexes for table `menu`
---
-ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id_menu`);
-
---
 -- Indexes for table `menu_dibooking`
 --
 ALTER TABLE `menu_dibooking`
@@ -439,6 +350,12 @@ ALTER TABLE `menu_dibooking`
 --
 ALTER TABLE `metode_pembayaran`
   ADD PRIMARY KEY (`id_metode`);
+
+--
+-- Indexes for table `pasien`
+--
+ALTER TABLE `pasien`
+  ADD PRIMARY KEY (`id_pasien`) USING BTREE;
 
 --
 -- Indexes for table `pegawai`
@@ -459,22 +376,10 @@ ALTER TABLE `saran_kritik`
   ADD PRIMARY KEY (`id_saran`);
 
 --
--- Indexes for table `saw_hasil`
+-- Indexes for table `teraphy`
 --
-ALTER TABLE `saw_hasil`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `saw_kriteria`
---
-ALTER TABLE `saw_kriteria`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `saw_pegawai`
---
-ALTER TABLE `saw_pegawai`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `teraphy`
+  ADD PRIMARY KEY (`id_teraphy`) USING BTREE;
 
 --
 -- Indexes for table `user`
@@ -508,13 +413,7 @@ ALTER TABLE `lupa_password`
 -- AUTO_INCREMENT for table `meja`
 --
 ALTER TABLE `meja`
-  MODIFY `id_meja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `menu`
---
-ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_meja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `menu_dibooking`
@@ -527,6 +426,12 @@ ALTER TABLE `menu_dibooking`
 --
 ALTER TABLE `metode_pembayaran`
   MODIFY `id_metode` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `pasien`
+--
+ALTER TABLE `pasien`
+  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
@@ -547,22 +452,10 @@ ALTER TABLE `saran_kritik`
   MODIFY `id_saran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `saw_hasil`
+-- AUTO_INCREMENT for table `teraphy`
 --
-ALTER TABLE `saw_hasil`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `saw_kriteria`
---
-ALTER TABLE `saw_kriteria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `saw_pegawai`
---
-ALTER TABLE `saw_pegawai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `teraphy`
+  MODIFY `id_teraphy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user`

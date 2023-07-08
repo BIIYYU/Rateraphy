@@ -3,8 +3,8 @@
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="<?= base_url() ?>admin">
-                <i class="fa fa-stethoscope text-primary"></i>
-                <!-- <img class="logoDIV" src="<?= base_url() ?>assets/auth/images/logo.png"> -->
+                <!-- <i class="fa fa-stethoscope text-primary"></i> -->
+                <img class="logoDIV" src="<?= base_url() ?>assets/auth/images/icon.png">
                 <span class="h2 text-blue">RaTeraphy - Clinic</span>
             </a>
         </div>
@@ -27,7 +27,7 @@
                 </h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>makanan">
+                        <a class="nav-link" href="<?= base_url() ?>C_teraphy">
                             <i class="fa fa-laptop-medical text-primary"></i>
                             <span class="nav-link-text">Master Teraphy</span>
                             <!-- makanan -->
@@ -36,9 +36,18 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>C_pasien">
+                            <i class="fa fa-users text-primary"></i>
+                            <span class="nav-link-text">Data Pasien</span>
+                            <!-- makanan -->
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>meja">
-                            <i class="fa fa-table text-primary"></i>
-                            <span class="nav-link-text">Manajemen Meja</span>
+                            <i class="fa fa-notes-medical text-primary"></i>
+                            <span class="nav-link-text">Keluhan</span>
                             <!-- manajemen meja -->
                         </a>
                     </li>
@@ -61,17 +70,9 @@
                         </a>
                     </li>
                 </ul>
-                <!-- <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>saran">
-                            <i class="fa fa-envelope text-primary"></i>
-                            <span class="nav-link-text">Kritik & Saran</span>
-                        </a>
-                    </li>
-                </ul> -->
-                <?php
+                <!-- <?php
                 if ($this->session->userdata('jabatan') == "admin") {
-                ?>
+                ?> -->
                     <!-- Divider -->
                     <hr class="my-3">
                     <h6 class="navbar-heading p-0 text-muted">
@@ -109,17 +110,9 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= base_url() ?>saw">
-                                <i class="fa fa-trophy text-primary"></i>
-                                <span class="nav-link-text">Pemilihan Pegawai Teladan</span>
-                            </a>
-                        </li>
-                    </ul> -->
-                <?php
+                <!-- <?php
                 }
-                ?>
+                ?> -->
             </div>
         </div>
     </div>
