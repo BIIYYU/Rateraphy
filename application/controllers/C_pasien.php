@@ -26,6 +26,31 @@ class C_pasien extends CI_Controller
         $this->load->view('admin/layout/footer');
     }
 
+    public function getkeluhan(){
+        $list_keluhan = $this->model->getkeluhan();
+        // $this->load->model('Makanan_model');
+
+        // $data['list_keluhan'] = $this->model->getkeluhan();
+
+        if(!empty($list_keluhan)){
+            $hasil =  array(
+                'status'  => 0,
+                'vstatus' => 'berhasil',
+                'pesan'   => 'berhasil',
+                'data'    => $list_keluhan,
+            );
+        }else {
+            $hasil = array(
+                'status'  => 1,
+                'vstatus' => 'gagal',
+                'pesan'   => 'Tidak ada data',
+            );
+        }
+
+        // echo json_encode($data['list_keluhan']);
+        echo json_encode ($list_keluhan);
+    }
+
     public function tambah()
     {
         $this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
@@ -58,9 +83,10 @@ class C_pasien extends CI_Controller
 
     public function proses($id)
     {
-        $data['title'] = 'Proses Pasien';
-        $data['pasien'] = $this->model->getpasienById($id);
-        $data['invoice'] = $this->model->getInvoiceByID($id); 
+        $data['title']   = 'Proses Pasien';
+        $data['pasien']  = $this->model->getpasienById($id);
+        $data['invoice'] = $this->model->getInvoiceByID($id);
+        $data['keluhan'] = $this->model->getkeluhan();
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
@@ -70,22 +96,40 @@ class C_pasien extends CI_Controller
 
     public function proses_tambah_invoice()
     {
-        $this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
-        $this->form_validation->set_rules('umur', 'umur', 'required');
-        $this->form_validation->set_rules('alamat', 'alamat', 'required');
-        $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
-        $this->form_validation->set_rules('tanggal_teraphy', 'tanggal_teraphy', 'required');
-        $this->form_validation->set_rules('jam_teraphy', 'jam_teraphy', 'required');
-        $this->form_validation->set_rules('keluhan', 'keluhan', 'required');
-        $this->form_validation->set_rules('diagnosa', 'diagnosa', 'required');
-        $this->form_validation->set_rules('intervensi', 'intervensi', 'required');
-        $this->form_validation->set_rules('terapi_ke', 'terapi_ke', 'required');
-        
-        // echo "<pre>";
-        // print_r ($data);
-        // echo "</pre>";
-        // exit();
-        
+        $id_pasien       = $this->input->post('id_pasien');
+        $nama_pasien     = $this->input->post('nama_pasien');
+        $umur            = $this->input->post('umur');
+        $alamat          = $this->input->post('alamat');
+        $nik             = $this->input->post('nik');
+        $tanggal_teraphy = $this->input->post('tanggal_teraphy');
+        $jam_teraphy     = $this->input->post('jam_teraphy');
+        $keluhan         = $this->input->post('keluhan');
+        $diagnosa        = $this->input->post('diagnosa');
+        $intervensi      = $this->input->post('intervensi');
+        $terapi_ke       = $this->input->post('terapi_ke');
+
+        $keluhan_arr = '';
+        if(isset($keluhan)){
+            foreach($keluhan as $dt_keluhan){
+                $arr_keluhan[] = $dt_keluhan;
+            }
+            $keluhan_arr = implode(',', $arr_keluhan);
+        }
+        //  print_r($keluhan_arr); exit();
+
+        $data = [
+            "id_pasien"       => $id_pasien,
+            "nama_pasien"     => $nama_pasien,
+            "umur"            => $umur,
+            "alamat"          => $alamat,
+            "nik"             => $nik,
+            "tanggal_teraphy" => $tanggal_teraphy,
+            "jam_teraphy"     => $jam_teraphy,
+            "keluhan"         => $keluhan_arr,
+            "diagnosa"        => $diagnosa,
+            "intervensi"      => $intervensi,
+            "terapi_ke"       => $terapi_ke
+        ];
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');

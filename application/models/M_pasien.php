@@ -7,7 +7,7 @@ class M_pasien extends CI_Model
 
     public function GetAllpasien()
     {
-        $query = $this->db->query("SELECT * FROM pasien");
+        $query = $this->db->query("SELECT * FROM pasien ORDER BY nama_pasien ASC");
         return $query->result_array();
     }
 
@@ -19,7 +19,13 @@ class M_pasien extends CI_Model
     }
 
     public function getInvoiceByID($id){
-        $query = $this->db->query("SELECT * FROM invoice WHERE id_invoice = $id");
+        $query = $this->db->query("SELECT * FROM invoice WHERE id_invoice = $id ORDER BY id_invoice ASC");
+        return $query->result_array();
+    }
+
+    public function getkeluhan(){
+        $query = $this->db->query("SELECT nama_teraphy, harga FROM teraphy ORDER BY nama_teraphy ASC");
+        return $query->result_array();
     }
 
     public function tambah()
@@ -35,23 +41,9 @@ class M_pasien extends CI_Model
         }
     }
 
-    public function proses_invoice()
+    public function proses_invoice($data)
     {
         {
-            $data = [
-                "nama_pasien"     => $this->input->post('nama_pasien'),
-                "umur"            => $this->input->post('umur'),
-                "alamat"          => $this->input->post('alamat'),
-                "nik"             => $this->input->post('nik'),
-                "tanggal_teraphy" => $this->input->post('tanggal_teraphy'),
-                "jam_teraphy"     => $this->input->post('jam_teraphy'),
-                "keluhan"         => $this->input->post('keluhan'),
-                "diagnosa"        => $this->input->post('diagnosa'),
-                "intervensi"      => $this->input->post('intervensi'),
-                "terapi_ke"       => $this->input->post('terapi_ke')
-            ];
-
-            // print_r($data);exit();
             $this->db->insert('invoice', $data);
         }
     }
