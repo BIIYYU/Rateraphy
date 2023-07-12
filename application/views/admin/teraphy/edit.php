@@ -26,7 +26,7 @@
                     <h3 class="mb-0">Edit Teraphy</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message'); ?>
+                    <?= $this->session->flashdata('message_teraphy'); ?>
                     <form action="<?= base_url() ?>C_teraphy/prosesEdit" method="post" enctype="multipart/form-data">
                         <?php
                         foreach ($teraphy as $dt_teraphy) { ?>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="text-center mb-3">
                                 <a href="<?= base_url() ?>C_teraphy" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Back</a>
-                                <button type="submit" class="btn btn-success btn-sm">Edit Menu</button>
+                                <button type="submit" class="btn btn-success btn-sm">Edit Teraphy</button>
                             </div>
                         <?php }
                         ?>

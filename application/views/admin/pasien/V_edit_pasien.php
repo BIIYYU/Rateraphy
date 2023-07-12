@@ -26,7 +26,7 @@
                     <h3 class="mb-0">Edit Pasien</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message'); ?>
+                    <?= $this->session->flashdata('message_pasien'); ?>
                     <form action="<?= base_url() ?>C_pasien/prosesEdit" method="post" enctype="multipart/form-data">
                         <?php
                         foreach ($pasien as $dt_pasien) { ?>

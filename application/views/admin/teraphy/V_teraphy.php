@@ -25,7 +25,7 @@
                     <h3 class="mb-0">Tabel Teraphy</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message'); ?>
+                    <?= $this->session->flashdata('message_teraphy'); ?>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah_teraphy_modal"><i class="fa fa-plus"></i> Tambah Teraphy</button>
                     <div class="table-responsive">
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">

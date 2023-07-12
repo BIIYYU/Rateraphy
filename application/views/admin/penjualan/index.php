@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message'); ?>
+                    <!-- <?= $this->session->flashdata('message'); ?> -->
                     <div class="table-responsive">
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">
                             <thead class="thead-dark">

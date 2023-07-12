@@ -29,8 +29,6 @@ class C_invoice extends CI_Controller
         return $arr;
     }
 
-
-
     public function index()
     {
         if (empty($this->session->userdata('id_pegawai'))) {
@@ -45,63 +43,15 @@ class C_invoice extends CI_Controller
         $this->load->view('admin/layout/footer');
     }
 
-    public function cari()
+    public function proses($id)
     {
-        $this->form_validation->set_rules('keyword', 'keyword', 'required');
-        $profil = $this->getProfilUsaha();
-        if ($this->form_validation->run() == FALSE) {
-            $data['nama_usaha'] = $profil['nama_usaha'];
-            $data['alamat'] = $profil['alamat'];
-            $data['nomor_telepon'] = $profil['nomor_telepon'];
-            $data['instagram'] = $profil['instagram'];
-            $data['facebook'] = $profil['facebook'];
-            $this->load->view('home/layout/header', $data);
-            $this->load->view('home/cekbayar', $data);
-            $this->load->view('home/layout/footer');
-        } else {
-            $keyword = $this->input->post('keyword', true);
-            $data = $this->db->query("SELECT * FROM invoice WHERE id_detail_menu = '$keyword'");
-            foreach ($data->result_array() as $result) {
-                $batas_dp = $result['batas_invoice_dp'];
-                $status = $result['status_invoice'];
-                $bukti_invoice = $result['bukti_invoice'];
-            }
-
-
-            if (empty($status)) {
-                echo '<META HTTP-EQUIV=Refresh CONTENT="3; URL=' . base_url('invoice/cari') . '">';
-                echo  'Kode yang anda masukan salah.';
-            } else {
-
-                date_default_timezone_set('Asia/Bangkok');
-
-                $tanggal_batas_bayar =  strtotime($batas_dp);
-                $tanggal_sekarang = strtotime(date('Y-m-d H:i:s'));
-                $diff = $tanggal_batas_bayar - $tanggal_sekarang;
-                $hours = $diff / 3600;
-
-                // batas bayar satuan jam.
-                if ($hours < 0) {
-                    $data = array('keyword' => 'Invalid', 'bbayar' => 'Invalid', 'status' => "Hangus");
-                } else {
-                    if ($status == "Belum Bayar DP" && $bukti_invoice == "Kosong") {
-                        $data = array('keyword' => $keyword, 'bbayar' => 'Valid', 'status' => $status);
-                    } else if ($status == "Belum Bayar DP" && $bukti_invoice == "Gambar Salah") {
-                        $data = array('keyword' => $keyword, 'bbayar' => 'Gambar Salah', 'status' => $status);
-                    } else {
-                        $data = array('keyword' => 'Invalid', 'bbayar' => 'Invalid', 'status' => $status);
-                    }
-                }
-                $data['nama_usaha'] = $profil['nama_usaha'];
-                $data['alamat'] = $profil['alamat'];
-                $data['nomor_telepon'] = $profil['nomor_telepon'];
-                $data['instagram'] = $profil['instagram'];
-                $data['facebook'] = $profil['facebook'];
-                $this->load->view('home/layout/header', $data);
-                $this->load->view('home/cekbayar', $data);
-                $this->load->view('home/layout/footer');
-            }
-        }
+        $data['title']   = 'Proses Invoice';
+        $data['invoice'] = $this->M_invoice->getInvoiceByID($id);
+        $this->load->view('admin/layout/header', $data);
+        $this->load->view('admin/layout/side');
+        $this->load->view('admin/layout/side-header');
+        $this->load->view('admin/invoice/V_detail_invoice');
+        $this->load->view('admin/layout/footer');
     }
 
     public function edit($id)
@@ -115,33 +65,75 @@ class C_invoice extends CI_Controller
         $this->load->view('admin/layout/footer');
     }
 
+    public function transaksi_selesai($id)
+    {
+        $id_invoice      = $this->input->post('id_invoice');
+        $id_pasien       = $this->input->post('id_pasien');
+        $nama_pasien     = $this->input->post('nama_pasien');
+        $umur            = $this->input->post('umur');
+        $alamat          = $this->input->post('alamat');
+        $nik             = $this->input->post('nik');
+        $tanggal_teraphy = $this->input->post('tanggal_teraphy');
+        $jam_teraphy     = $this->input->post('jam_teraphy');
+        $keluhan         = $this->input->post('keluhan');
+        $diagnosa        = $this->input->post('diagnosa');
+        $intervensi      = $this->input->post('intervensi');
+        $terapi_ke       = $this->input->post('terapi_ke');
+
+        $keluhan_arr = '';
+        if(isset($keluhan)){
+            foreach($keluhan as $dt_keluhan){
+                $arr_keluhan[] = $dt_keluhan;
+            }
+            $keluhan_arr = implode(',', $arr_keluhan);
+        }
+
+        $teraphy_arr = '';
+        if(isset($intervensi)){
+            foreach($intervensi as $dt_teraphy){
+                $arr_teraphy[] = $dt_teraphy;
+            }
+            $teraphy_arr = implode(',', $arr_teraphy);
+        }
+
+        $data = [
+            "id_pasien"        => $id_pasien,
+            "nama_pasien"      => $nama_pasien,
+            "umur"             => $umur,
+            "alamat"           => $alamat,
+            "nik"              => $nik,
+            "tanggal_teraphy"  => $tanggal_teraphy,
+            "jam_teraphy"      => $jam_teraphy,
+            "keluhan"          => $keluhan,
+            "diagnosa"         => $diagnosa,
+            "intervensi"       => $intervensi,
+            "terapi_ke"        => $terapi_ke,
+            "status_transaksi" => '1'
+        ];
+
+        $this->M_invoice->komplit($data, $id_invoice);
+
+        echo "<script>alert('Data berhasil dikomplit !');</script>";
+        redirect('C_invoice');
+
+    }
+
     public function prosesEdit()
     {
         $this->form_validation->set_rules('total_sudah_dibayar', 'total_sudah_dibayar', 'required|numeric');
         $this->form_validation->set_rules('status_invoice', 'status_invoice', 'required');
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            $this->session->set_flashdata('message_invoice', '<div class="alert alert-danger" role="alert">
             Gagal Mengkonfirmasi invoice
            </div>');
             redirect('invoice');
         } else {
             $this->M_invoice->edit();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            $this->session->set_flashdata('message_invoice', '<div class="alert alert-success" role="alert">
            Sukses Mengkonfirmasi invoice
           </div>');
             redirect('invoice');
         }
-    }
-
-    public function detail($id)
-    {
-        $data['title'] = 'Bukti invoice';
-        $data['invoice'] = $this->M_invoice->getinvoiceById($id);
-        $this->load->view('admin/layout/header', $data);
-        $this->load->view('admin/layout/side');
-        $this->load->view('admin/layout/side-header');
-        $this->load->view('admin/invoice/gambar');
-        $this->load->view('admin/layout/footer');
     }
 
     public function delete($id)
@@ -153,7 +145,7 @@ class C_invoice extends CI_Controller
             redirect('invoice');
         } else {
             $this->M_invoice->delete($id);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            $this->session->set_flashdata('message_invoice', '<div class="alert alert-success" role="alert">
             Sukses Menghapus Data Pemesanan
             </div>');
             redirect('invoice');
@@ -169,7 +161,7 @@ class C_invoice extends CI_Controller
         $data['nomor_telepon'] = $profil['nomor_telepon'];
         $data['instagram'] = $profil['instagram'];
         $data['facebook'] = $profil['facebook'];
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        $this->session->set_flashdata('message_invoice', '<div class="alert alert-success" role="alert">
             Sukses Mengupload bukti invoice.
             </div>');
         $this->load->view('home/layout/header', $data);

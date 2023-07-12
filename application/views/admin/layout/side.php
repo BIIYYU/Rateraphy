@@ -27,19 +27,9 @@
                 </h6>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>C_teraphy">
-                            <i class="fa fa-laptop-medical text-primary"></i>
-                            <span class="nav-link-text">Master Teraphy</span>
-                            <!-- makanan -->
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>C_pasien">
                             <i class="fa fa-users text-primary"></i>
                             <span class="nav-link-text">Data Pasien</span>
-                            <!-- makanan -->
                         </a>
                     </li>
                 </ul>
@@ -48,16 +38,22 @@
                         <a class="nav-link" href="<?= base_url() ?>C_invoice">
                             <i class="fa fa-edit text-primary"></i>
                             <span class="nav-link-text">Riwayat Transaksi</span>
-                            <!-- riwayat pembayaran -->
                         </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>penjualan">
-                            <i class="fa fa-users text-primary"></i>
-                            <span class="nav-link-text">Data Pasien</span>
-                            <!-- data penjualan -->
+                            <i class="fa fa-book text-primary"></i>
+                            <span class="nav-link-text">Transaksi Selesai</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>C_teraphy">
+                            <i class="fa fa-laptop-medical text-primary"></i>
+                            <span class="nav-link-text">Master Teraphy</span>
                         </a>
                     </li>
                 </ul>
@@ -66,7 +62,6 @@
                         <a class="nav-link" href="<?= base_url() ?>C_keluhan">
                             <i class="fa fa-notes-medical text-primary"></i>
                             <span class="nav-link-text">Keluhan</span>
-                            <!-- manajemen meja -->
                         </a>
                     </li>
                 </ul>

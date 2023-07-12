@@ -31,12 +31,12 @@ class C_keluhan extends CI_Controller
         $this->form_validation->set_rules('keluhan', 'keluhan', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
+            $this->session->set_flashdata('message_keluhan', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
             redirect('C_keluhan');
         } else {
             $this->model->tambah();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Menambah Data Menu
+            $this->session->set_flashdata('message_keluhan', '<div class="alert alert-success" role="alert">
+           Sukses Menambah Data Keluhan
           </div>');
             redirect('C_keluhan');
         }
@@ -68,14 +68,14 @@ class C_keluhan extends CI_Controller
     {
         $this->form_validation->set_rules('keluhan', 'keluhan', 'required');
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Gagal Mengedit Menu
+            $this->session->set_flashdata('message_keluhan', '<div class="alert alert-danger" role="alert">
+            Gagal Mengedit Keluhan
            </div>');
             redirect('C_keluhan');
         } else {
             $this->model->edit();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Mengedit Menu
+            $this->session->set_flashdata('message_keluhan', '<div class="alert alert-success" role="alert">
+           Sukses Mengedit Keluhan
           </div>');
             redirect('C_keluhan');
         }
@@ -84,8 +84,8 @@ class C_keluhan extends CI_Controller
     public function delete($id)
     {
         $this->model->delete($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Menghapus Menu.
+        $this->session->set_flashdata('message_keluhan', '<div class="alert alert-success" role="alert">
+           Sukses Menghapus Keluhan.
           </div>');
         redirect('C_keluhan');
     }

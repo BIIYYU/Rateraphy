@@ -25,7 +25,7 @@
                     <h3 class="mb-0">Tabel Pasien</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message'); ?>
+                    <?= $this->session->flashdata('message_pasien'); ?>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah_pasien_modal"><i class="fa fa-plus"></i> Tambah Pasien</button>
                     <div class="table-responsive">
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">
@@ -53,7 +53,7 @@
                                         <td>
                                             <a href="<?php base_url() ?>C_pasien/proses/<?= $dt_pasien['id_pasien'] ?>" class="btn btn-sm btn-success">Proses Pasien</a>
                                             <a href="<?php base_url() ?>C_pasien/edit/<?= $dt_pasien['id_pasien'] ?>" class="btn btn-sm btn-warning"> Edit</a>
-                                            <a href="<?php base_url() ?>C_pasien/delete/<?= $dt_pasien['id_pasien'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus menu <?= $dt_pasien['nama_pasien'] ?>? Jika anda menghapus menu ini maka gambar menu ini ikut terhapus.')" class="btn btn-sm btn-danger"> Hapus</a>
+                                            <a href="<?php base_url() ?>C_pasien/delete/<?= $dt_pasien['id_pasien'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus Pasien <?= $dt_pasien['nama_pasien'] ?>?')" class="btn btn-sm btn-danger"> Hapus</a>
                                         </td>
                                     </tr>
                                 <?php

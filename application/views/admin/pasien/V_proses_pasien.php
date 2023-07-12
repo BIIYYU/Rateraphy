@@ -26,7 +26,7 @@
                     <h3 class="mb-0">Proses Pasien</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message'); ?>
+                    <?= $this->session->flashdata('message_pasien'); ?>
                     <form action="<?= base_url() ?>C_pasien/proses_tambah_invoice" method="post" enctype="multipart/form-data">
                         <?php
                         // if(isset())
@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="textarea-input" class="form-control-label">Umur</label>
-                                <input type="text" name="umur" class="form-control umur" value="<?= $dt_pasien['umur']; ?>" placeholder="Umur" required readonly>
+                                <input type="text" name="umur" class="form-control umur" value="<?= $dt_pasien['umur']; ?>" placeholder="Umur" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">NIK</label>
@@ -63,7 +63,9 @@
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Keluhan</label>
                             <select class="form-control select2" multiple name="keluhan[]" placeholder="Pilih">
-                                <option id="list_keluhan"></option>
+                                <?php foreach ($keluhan as $dt_keluhan) { ?>
+                                    <option value="<?= $dt_keluhan['keluhan']; ?>"><?= $dt_keluhan['keluhan']; ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -72,7 +74,11 @@
                         </div>
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Intervensi</label>
-                            <input value="" type="text"  class="form-control" name="intervensi" placeholder="Intervensi" required>
+                            <select class="form-control select2" multiple name="intervensi[]" placeholder="Pilih">
+                                <?php foreach ($teraphy as $dt_teraphy) { ?>
+                                    <option value="<?= $dt_teraphy['nama_teraphy']; ?>"><?= $dt_teraphy['nama_teraphy']; ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Terapi Ke</label>
@@ -117,7 +123,7 @@
                                                     <td><?= $riwayat_invoice['nik'] ?></td>
                                                     <td><?= $riwayat_invoice['alamat'] ?></td>
                                                     <td>
-                                                        <a href="<?php base_url() ?>C_pasien/proses/<?= $riwayat_invoice['id_pasien'] ?>" class="btn btn-sm btn-success">Lihat Detail</a>
+                                                        <a href="<?php base_url() ?>C_pasien/proses/<?= $riwayat_invoice['id_invoice'] ?>" class="btn btn-sm btn-success">Lihat Detail</a>
                                                     </td>
                                                 </tr>
                                             <?php
@@ -140,7 +146,7 @@
 
     $(document).ready(function(){
 
-        GetKeluhan();
+        // GetKeluhan();
 
     });
 
@@ -155,7 +161,7 @@
                 let isi = '';
                 if(hasil.length > 0){
                     $.each(hasil, function(key, item){
-                        isi +=`<option value="${item.nama_teraphy}">${item.nama_teraphy} - Rp. ${item.harga}</option>`;
+                        isi +=`<option value="${item.keluhan}">${item.keluhan}</option>`;
                     });
                 }
                 console.log(isi)

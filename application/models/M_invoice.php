@@ -19,6 +19,12 @@ class M_invoice extends CI_Model
         return $query->result_array();
     }
 
+    public function komplit($data, $id)
+    {
+        $this->db->where('id_invoice', $id);
+        $this->db->update('invoice', $data);
+    }
+
     public function edit()
     {
         $id_invoice = $this->input->post('id_invoice');

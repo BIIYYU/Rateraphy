@@ -34,12 +34,12 @@ class C_teraphy extends CI_Controller
         $this->form_validation->set_rules('harga', 'harga', 'required|numeric');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
+            $this->session->set_flashdata('message_teraphy', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
             redirect('C_teraphy');
         } else {
             $this->model->tambah();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Menambah Data Menu
+            $this->session->set_flashdata('message_teraphy', '<div class="alert alert-success" role="alert">
+           Sukses Menambah Data Teraphy
           </div>');
             redirect('C_teraphy');
         }
@@ -58,7 +58,7 @@ class C_teraphy extends CI_Controller
 
     public function edit($id)
     {
-        $data['title'] = 'Edit Menu';
+        $data['title'] = 'Edit Teraphy';
         $data['teraphy'] = $this->model->getTeraphyById($id);
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
@@ -74,14 +74,14 @@ class C_teraphy extends CI_Controller
         $this->form_validation->set_rules('deskripsi', 'deskripsi', 'required');
         $this->form_validation->set_rules('harga', 'harga', 'required|numeric');
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Gagal Mengedit Menu
+            $this->session->set_flashdata('message_teraphy', '<div class="alert alert-danger" role="alert">
+            Gagal Mengedit Teraphy
            </div>');
             redirect('C_teraphy');
         } else {
             $this->model->edit();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Mengedit Menu
+            $this->session->set_flashdata('message_teraphy', '<div class="alert alert-success" role="alert">
+           Sukses Mengedit Teraphy
           </div>');
             redirect('C_teraphy');
         }
@@ -90,8 +90,8 @@ class C_teraphy extends CI_Controller
     public function delete($id)
     {
         $this->model->delete($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Menghapus Menu.
+        $this->session->set_flashdata('message_teraphy', '<div class="alert alert-success" role="alert">
+           Sukses Menghapus Teraphy.
           </div>');
         redirect('C_teraphy');
     }

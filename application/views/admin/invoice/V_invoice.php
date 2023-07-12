@@ -22,10 +22,10 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0">
-                    <h3 class="mb-0">Riwayat Pemesanan</h3>
+                    <h3 class="mb-0">Riwayat Transaksi</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message'); ?>
+                    <?= $this->session->flashdata('message_invoice'); ?>
                     <div class="table-responsive">
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">
                             <thead class="thead-dark">
@@ -53,7 +53,8 @@
                                         <td><?= $dt_invoice['tanggal_teraphy'] ?></td>
                                         <td><?= $dt_invoice['keluhan'] ?></td>
                                         <td>
-                                            <a href="<?php base_url() ?>C_pasien/proses/<?= $dt_invoice['id_invoice'] ?>" class="btn btn-sm btn-success">Lihat Detail</a>
+                                            <a href="<?php base_url() ?>C_invoice/proses/<?= $dt_invoice['id_invoice'] ?>" class="btn btn-sm btn-success">Lihat Detail</a>
+                                            <a href="<?php base_url() ?>C_invoice/transaksi_selesai/<?= $dt_invoice['id_invoice'] ?>" class="btn btn-sm btn-info" onclick="return confirm('Komplit Data ?')">Transaksi Selesai</a>
                                         </td>
                                     </tr>
                                 <?php

@@ -59,11 +59,11 @@ class C_pasien extends CI_Controller
         $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
+            $this->session->set_flashdata('message_pasien', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
             redirect('C_pasien');
         } else {
             $this->model->tambah();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            $this->session->set_flashdata('message_pasien', '<div class="alert alert-success" role="alert">
            Sukses Menambah Data Pasien
           </div>');
             redirect('C_pasien');
@@ -87,6 +87,7 @@ class C_pasien extends CI_Controller
         $data['pasien']  = $this->model->getpasienById($id);
         $data['invoice'] = $this->model->getInvoiceByID($id);
         $data['keluhan'] = $this->model->getkeluhan();
+        $data['teraphy'] = $this->model->get_teraphy();
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
@@ -115,32 +116,41 @@ class C_pasien extends CI_Controller
             }
             $keluhan_arr = implode(',', $arr_keluhan);
         }
-        //  print_r($keluhan_arr); exit();
+
+        $teraphy_arr = '';
+        if(isset($intervensi)){
+            foreach($intervensi as $dt_teraphy){
+                $arr_teraphy[] = $dt_teraphy;
+            }
+            $teraphy_arr = implode(',', $arr_teraphy);
+        }
 
         $data = [
-            "id_pasien"       => $id_pasien,
-            "nama_pasien"     => $nama_pasien,
-            "umur"            => $umur,
-            "alamat"          => $alamat,
-            "nik"             => $nik,
-            "tanggal_teraphy" => $tanggal_teraphy,
-            "jam_teraphy"     => $jam_teraphy,
-            "keluhan"         => $keluhan_arr,
-            "diagnosa"        => $diagnosa,
-            "intervensi"      => $intervensi,
-            "terapi_ke"       => $terapi_ke
+            "id_pasien"        => $id_pasien,
+            "nama_pasien"      => $nama_pasien,
+            "umur"             => $umur,
+            "alamat"           => $alamat,
+            "nik"              => $nik,
+            "tanggal_teraphy"  => $tanggal_teraphy,
+            "jam_teraphy"      => $jam_teraphy,
+            "keluhan"          => $keluhan_arr,
+            "diagnosa"         => $diagnosa,
+            "intervensi"       => $teraphy_arr,
+            "terapi_ke"        => $terapi_ke,
+            "status_transaksi" => '0'
         ];
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
+        $cekhead = $this->model->cek_invoice($id_pasien, $nama_pasien, $nik, $tanggal_teraphy, $jam_teraphy);
+
+        if($cekhead->num_rows() > 0 ){
+            $this->session->set_flashdata('message_pasien', '<div class="alert alert-danger" role="alert">Data Tanggal ='. $tanggal_teraphy .', Pasien = '.$nama_pasien.' , NIK = '.$nik.' Sudah Pernah disimpan sebelumnya</div>');
             redirect('C_pasien');
-        } else {
-            $this->model->proses_invoice();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Menambah Data Invoice
-          </div>');
-            redirect('C_pasien');
-        }
+        } else 
+            $this->model->proses_invoice($data);
+            // $this->session->set_flashdata('message_pasien', '<div class="alert alert-success" role="alert">Sukses Menambah Data Invoice</div>');
+            echo "<script>alert('Data berhasil disimpan !');</script>";
+            redirect('C_invoice');
+        
     }
 
     public function edit($id)
@@ -161,15 +171,13 @@ class C_pasien extends CI_Controller
         $this->form_validation->set_rules('alamat', 'alamat', 'required');
         $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+            $this->session->set_flashdata('message_pasien', '<div class="alert alert-danger" role="alert">
             Gagal Mengedit Pasien
            </div>');
             redirect('C_pasien');
         } else {
             $this->model->edit();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Mengedit Pasien
-          </div>');
+            $this->session->set_flashdata('message_pasien', '<div class="alert alert-success" role="alert">Sukses Mengedit Pasien</div>');
             redirect('C_pasien');
         }
     }
@@ -177,7 +185,7 @@ class C_pasien extends CI_Controller
     public function delete($id)
     {
         $this->model->delete($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        $this->session->set_flashdata('message_pasien', '<div class="alert alert-success" role="alert">
            Sukses Menghapus Pasien.
           </div>');
         redirect('C_pasien');
