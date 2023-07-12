@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2023 at 11:46 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Jul 12, 2023 at 07:13 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `booking` (
   `batas_pembayaran_dp` datetime NOT NULL,
   `status_pembayaran` varchar(250) NOT NULL,
   `bukti_pembayaran` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booking`
@@ -59,7 +59,79 @@ CREATE TABLE `gambar_menu` (
   `id_gambar` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
   `gambar` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `id_invoice` int(11) NOT NULL,
+  `nama_pasien` varchar(255) DEFAULT NULL,
+  `nik` int(11) DEFAULT NULL,
+  `umur` varchar(10) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `tanggal_teraphy` date DEFAULT NULL,
+  `jam_teraphy` varchar(32) DEFAULT NULL,
+  `keluhan` text DEFAULT NULL,
+  `diagnosa` text DEFAULT NULL,
+  `intervensi` varchar(255) DEFAULT NULL,
+  `terapi_ke` varchar(10) DEFAULT NULL,
+  `id_pasien` int(11) DEFAULT NULL,
+  `status_transaksi` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`id_invoice`, `nama_pasien`, `nik`, `umur`, `alamat`, `tanggal_teraphy`, `jam_teraphy`, `keluhan`, `diagnosa`, `intervensi`, `terapi_ke`, `id_pasien`, `status_transaksi`) VALUES
+(26, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-11', '12:02', 'Pusing', 'asd', 'asd', '1', NULL, NULL),
+(27, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-12', '21:17', 'Mual,Pegal-pegal', 'asd', 'qwr', '1', 24, NULL),
+(28, 'Laura', 1231, '26', 'guntung', '2023-07-13', '21:40', 'Mual,Pegal-pegal', 'asd', 'Assesment,UPS', '1', 25, NULL),
+(29, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-12', '11:32', 'Mual,Pusing', 'qweas', 'Assesment,UPS', '1', 24, b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoicew`
+--
+
+CREATE TABLE `invoicew` (
+  `header_id` int(11) NOT NULL,
+  `nama_pasien` varchar(255) DEFAULT NULL,
+  `nik` int(11) DEFAULT NULL,
+  `umur` varchar(10) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `tanggal_teraphy` date DEFAULT NULL,
+  `jam_teraphy` varchar(32) DEFAULT NULL,
+  `keluhan` text DEFAULT NULL,
+  `diagnosa` text DEFAULT NULL,
+  `intervensi` varchar(255) DEFAULT NULL,
+  `terapi_ke` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `keluhan`
+--
+
+CREATE TABLE `keluhan` (
+  `id_keluhan` int(11) NOT NULL,
+  `keluhan` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `keluhan`
+--
+
+INSERT INTO `keluhan` (`id_keluhan`, `keluhan`) VALUES
+(27, 'Pusing'),
+(28, 'Mual'),
+(29, 'Pegal-pegal');
 
 -- --------------------------------------------------------
 
@@ -74,7 +146,7 @@ CREATE TABLE `lupa_password` (
   `pertanyaankeamanan2` varchar(255) NOT NULL,
   `jawabankeamanan1` varchar(255) NOT NULL,
   `jawabankeamanan2` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `lupa_password`
@@ -89,25 +161,6 @@ INSERT INTO `lupa_password` (`id_lupa_password`, `id_pegawai`, `pertanyaankeaman
 -- --------------------------------------------------------
 
 --
--- Table structure for table `meja`
---
-
-CREATE TABLE `meja` (
-  `id_meja` int(11) NOT NULL,
-  `nomor_meja` varchar(50) NOT NULL,
-  `kapasitas_meja` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `meja`
---
-
-INSERT INTO `meja` (`id_meja`, `nomor_meja`, `kapasitas_meja`) VALUES
-(14, '1', 2);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `menu_dibooking`
 --
 
@@ -118,7 +171,7 @@ CREATE TABLE `menu_dibooking` (
   `jumlah` int(5) NOT NULL,
   `sub_total` int(12) NOT NULL,
   `status_order` varchar(255) NOT NULL DEFAULT 'success'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `menu_dibooking`
@@ -170,7 +223,7 @@ CREATE TABLE `metode_pembayaran` (
   `nama_merchant` varchar(250) NOT NULL,
   `atas_nama` varchar(250) NOT NULL,
   `kode_pembayaran` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `metode_pembayaran`
@@ -191,7 +244,7 @@ CREATE TABLE `pasien` (
   `alamat` text NOT NULL,
   `umur` varchar(50) NOT NULL,
   `nik` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pasien`
@@ -216,7 +269,7 @@ CREATE TABLE `pegawai` (
   `telepon` varchar(50) NOT NULL,
   `jenis_kelamin` varchar(50) NOT NULL,
   `jabatan` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `pegawai`
@@ -245,7 +298,7 @@ CREATE TABLE `profil_usaha` (
   `foto_usaha_1` text NOT NULL,
   `foto_usaha_2` text NOT NULL,
   `foto_usaha_3` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `profil_usaha`
@@ -253,20 +306,6 @@ CREATE TABLE `profil_usaha` (
 
 INSERT INTO `profil_usaha` (`id`, `nama_usaha`, `deskripsi`, `alamat`, `nomor_telepon`, `email`, `instagram`, `facebook`, `maps_link`, `foto_usaha_1`, `foto_usaha_2`, `foto_usaha_3`) VALUES
 (1, 'PRAKTEK FISIOTERAPI Ftr. Laura Tirta Sary, S.ftr', 'Praktek Fisioterapi', 'Jl. Telaga Raja No-110, Tagaraja, Kateman', '081279444197', 'lauratirtasary@gmail.com', 'Laura Tirta Sary', 'Laura Tirta Sary', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1994.880453989942!2d103.601325!3d0.307372!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d821c88c32b3cb%3A0xb4942a9c76adf4cf!2sWarung%20Ma\'Wo!5e0!3m2!1sen!2sus!4v1680594332763!5m2!1sen!2sus', 'catering.jpg', 'image1.jpg', 'image2.png');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `saran_kritik`
---
-
-CREATE TABLE `saran_kritik` (
-  `id_saran` int(11) NOT NULL,
-  `nama_pelanggan` varchar(100) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `tanggal` date NOT NULL,
-  `saran` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -280,15 +319,15 @@ CREATE TABLE `teraphy` (
   `deskripsi` text NOT NULL,
   `kode` varchar(50) NOT NULL,
   `harga` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `teraphy`
 --
 
 INSERT INTO `teraphy` (`id_teraphy`, `nama_teraphy`, `deskripsi`, `kode`, `harga`) VALUES
-(20, 'Assesment', 'Assesment teraphy', 'as', 1214124),
-(22, 'UPS', 'dasdas', 'uip', 4124124);
+(20, 'Assesment', 'Assesment teraphy', 'as', 15000),
+(22, 'UPS', 'ups teraphy', 'ups', 30000);
 
 -- --------------------------------------------------------
 
@@ -302,7 +341,7 @@ CREATE TABLE `user` (
   `level_user` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
@@ -328,16 +367,28 @@ ALTER TABLE `gambar_menu`
   ADD PRIMARY KEY (`id_gambar`);
 
 --
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`id_invoice`) USING BTREE;
+
+--
+-- Indexes for table `invoicew`
+--
+ALTER TABLE `invoicew`
+  ADD PRIMARY KEY (`header_id`);
+
+--
+-- Indexes for table `keluhan`
+--
+ALTER TABLE `keluhan`
+  ADD PRIMARY KEY (`id_keluhan`) USING BTREE;
+
+--
 -- Indexes for table `lupa_password`
 --
 ALTER TABLE `lupa_password`
   ADD PRIMARY KEY (`id_lupa_password`);
-
---
--- Indexes for table `meja`
---
-ALTER TABLE `meja`
-  ADD PRIMARY KEY (`id_meja`);
 
 --
 -- Indexes for table `menu_dibooking`
@@ -370,12 +421,6 @@ ALTER TABLE `profil_usaha`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `saran_kritik`
---
-ALTER TABLE `saran_kritik`
-  ADD PRIMARY KEY (`id_saran`);
-
---
 -- Indexes for table `teraphy`
 --
 ALTER TABLE `teraphy`
@@ -404,16 +449,22 @@ ALTER TABLE `gambar_menu`
   MODIFY `id_gambar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
+-- AUTO_INCREMENT for table `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `keluhan`
+--
+ALTER TABLE `keluhan`
+  MODIFY `id_keluhan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
 -- AUTO_INCREMENT for table `lupa_password`
 --
 ALTER TABLE `lupa_password`
   MODIFY `id_lupa_password` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `meja`
---
-ALTER TABLE `meja`
-  MODIFY `id_meja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `menu_dibooking`
@@ -444,12 +495,6 @@ ALTER TABLE `pegawai`
 --
 ALTER TABLE `profil_usaha`
   MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `saran_kritik`
---
-ALTER TABLE `saran_kritik`
-  MODIFY `id_saran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `teraphy`
