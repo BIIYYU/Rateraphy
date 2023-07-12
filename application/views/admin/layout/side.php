@@ -45,16 +45,7 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>meja">
-                            <i class="fa fa-notes-medical text-primary"></i>
-                            <span class="nav-link-text">Keluhan</span>
-                            <!-- manajemen meja -->
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>pembayaran">
+                        <a class="nav-link" href="<?= base_url() ?>C_invoice">
                             <i class="fa fa-edit text-primary"></i>
                             <span class="nav-link-text">Riwayat Transaksi</span>
                             <!-- riwayat pembayaran -->
@@ -67,6 +58,15 @@
                             <i class="fa fa-users text-primary"></i>
                             <span class="nav-link-text">Data Pasien</span>
                             <!-- data penjualan -->
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>C_keluhan">
+                            <i class="fa fa-notes-medical text-primary"></i>
+                            <span class="nav-link-text">Keluhan</span>
+                            <!-- manajemen meja -->
                         </a>
                     </li>
                 </ul>

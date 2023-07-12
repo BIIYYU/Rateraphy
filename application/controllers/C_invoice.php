@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pembayaran extends CI_Controller
+class C_invoice extends CI_Controller
 {
     public function __construct()
     {
@@ -9,7 +9,7 @@ class Pembayaran extends CI_Controller
         // if (empty($this->session->userdata('id_pegawai'))) {
         //     redirect('auth/loginPegawai', 'refresh');
         // }
-        $this->load->model('pembayaran_model');
+        $this->load->model('M_invoice');
     }
 
     public function getProfilUsaha()
@@ -37,11 +37,11 @@ class Pembayaran extends CI_Controller
             redirect('auth/loginPegawai', 'refresh');
         }
         $data['title'] = 'Daftar Riwayat Pemesanan';
-        $data['booking'] = $this->pembayaran_model->getAllBooking();
+        $data['invoice'] = $this->M_invoice->getAllinvoice();
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
-        $this->load->view('admin/bayar/index');
+        $this->load->view('admin/invoice/V_invoice');
         $this->load->view('admin/layout/footer');
     }
 
@@ -60,16 +60,16 @@ class Pembayaran extends CI_Controller
             $this->load->view('home/layout/footer');
         } else {
             $keyword = $this->input->post('keyword', true);
-            $data = $this->db->query("SELECT * FROM booking WHERE id_detail_menu = '$keyword'");
+            $data = $this->db->query("SELECT * FROM invoice WHERE id_detail_menu = '$keyword'");
             foreach ($data->result_array() as $result) {
-                $batas_dp = $result['batas_pembayaran_dp'];
-                $status = $result['status_pembayaran'];
-                $bukti_pembayaran = $result['bukti_pembayaran'];
+                $batas_dp = $result['batas_invoice_dp'];
+                $status = $result['status_invoice'];
+                $bukti_invoice = $result['bukti_invoice'];
             }
 
 
             if (empty($status)) {
-                echo '<META HTTP-EQUIV=Refresh CONTENT="3; URL=' . base_url('pembayaran/cari') . '">';
+                echo '<META HTTP-EQUIV=Refresh CONTENT="3; URL=' . base_url('invoice/cari') . '">';
                 echo  'Kode yang anda masukan salah.';
             } else {
 
@@ -84,9 +84,9 @@ class Pembayaran extends CI_Controller
                 if ($hours < 0) {
                     $data = array('keyword' => 'Invalid', 'bbayar' => 'Invalid', 'status' => "Hangus");
                 } else {
-                    if ($status == "Belum Bayar DP" && $bukti_pembayaran == "Kosong") {
+                    if ($status == "Belum Bayar DP" && $bukti_invoice == "Kosong") {
                         $data = array('keyword' => $keyword, 'bbayar' => 'Valid', 'status' => $status);
-                    } else if ($status == "Belum Bayar DP" && $bukti_pembayaran == "Gambar Salah") {
+                    } else if ($status == "Belum Bayar DP" && $bukti_invoice == "Gambar Salah") {
                         $data = array('keyword' => $keyword, 'bbayar' => 'Gambar Salah', 'status' => $status);
                     } else {
                         $data = array('keyword' => 'Invalid', 'bbayar' => 'Invalid', 'status' => $status);
@@ -107,40 +107,40 @@ class Pembayaran extends CI_Controller
     public function edit($id)
     {
         $data['title'] = 'Detail & Konfirmasi';
-        $data['booking'] = $this->pembayaran_model->getBookingById($id);
+        $data['invoice'] = $this->M_invoice->getinvoiceById($id);
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
-        $this->load->view('admin/bayar/detail');
+        $this->load->view('admin/invoice/detail');
         $this->load->view('admin/layout/footer');
     }
 
     public function prosesEdit()
     {
         $this->form_validation->set_rules('total_sudah_dibayar', 'total_sudah_dibayar', 'required|numeric');
-        $this->form_validation->set_rules('status_pembayaran', 'status_pembayaran', 'required');
+        $this->form_validation->set_rules('status_invoice', 'status_invoice', 'required');
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Gagal Mengkonfirmasi Pembayaran
+            Gagal Mengkonfirmasi invoice
            </div>');
-            redirect('pembayaran');
+            redirect('invoice');
         } else {
-            $this->pembayaran_model->edit();
+            $this->M_invoice->edit();
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Mengkonfirmasi Pembayaran
+           Sukses Mengkonfirmasi invoice
           </div>');
-            redirect('pembayaran');
+            redirect('invoice');
         }
     }
 
     public function detail($id)
     {
-        $data['title'] = 'Bukti Pembayaran';
-        $data['booking'] = $this->pembayaran_model->getBookingById($id);
+        $data['title'] = 'Bukti invoice';
+        $data['invoice'] = $this->M_invoice->getinvoiceById($id);
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
-        $this->load->view('admin/bayar/gambar');
+        $this->load->view('admin/invoice/gambar');
         $this->load->view('admin/layout/footer');
     }
 
@@ -150,27 +150,27 @@ class Pembayaran extends CI_Controller
             redirect('auth/loginPegawai', 'refresh');
         }
         if ($this->session->userdata('jabatan') != "admin") {
-            redirect('pembayaran');
+            redirect('invoice');
         } else {
-            $this->pembayaran_model->delete($id);
+            $this->M_invoice->delete($id);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             Sukses Menghapus Data Pemesanan
             </div>');
-            redirect('pembayaran');
+            redirect('invoice');
         }
     }
 
     public function uploadGambar()
     {
         $profil = $this->getProfilUsaha();
-        $this->pembayaran_model->uploadBuktiBayar();
+        $this->M_invoice->uploadBuktiBayar();
         $data['nama_usaha'] = $profil['nama_usaha'];
         $data['alamat'] = $profil['alamat'];
         $data['nomor_telepon'] = $profil['nomor_telepon'];
         $data['instagram'] = $profil['instagram'];
         $data['facebook'] = $profil['facebook'];
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Sukses Mengupload bukti pembayaran.
+            Sukses Mengupload bukti invoice.
             </div>');
         $this->load->view('home/layout/header', $data);
         $this->load->view('home/cekbayar', $data);

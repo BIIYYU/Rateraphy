@@ -44,8 +44,7 @@ class Admin extends CI_Controller
             "desember" => $this->transaksi_model->getDesember()
         ];
         $this->load->view('admin/layout/header', $data);
-        $this->load->view('admin/layout/side');
-        $this->load->view('admin/layout/side-header');
+        $this->load->view('admin/layout/side'); $this->load->view('admin/layout/side-header');
         $this->load->view('admin/index');
         $this->load->view('admin/layout/footer');
     }

@@ -3,27 +3,27 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class pembayaran_model extends CI_Model
+class M_invoice extends CI_Model
 {
-    public function getAllBooking()
+    public function getAllinvoice()
     {
 
-        $query = $this->db->query("SELECT * FROM booking");
+        $query = $this->db->query("SELECT * FROM invoice");
         return $query->result_array();
     }
 
-    public function getBookingById($id)
+    public function getinvoiceById($id)
     {
 
-        $query = $this->db->query("SELECT * FROM booking WHERE id_booking = $id");
+        $query = $this->db->query("SELECT * FROM invoice WHERE id_invoice = $id");
         return $query->result_array();
     }
 
     public function edit()
     {
-        $id_booking = $this->input->post('id_booking');
+        $id_invoice = $this->input->post('id_invoice');
         if ($this->input->post('status_pembayaran') == "Belum Bayar DP") {
-            $getDataGambar = $this->db->query("SELECT * FROM booking WHERE id_booking = $id_booking");
+            $getDataGambar = $this->db->query("SELECT * FROM invoice WHERE id_invoice = $id_invoice");
 
             foreach ($getDataGambar->result_array() as $gambar) {
                 $gambar_bukti = $gambar['bukti_pembayaran'];
@@ -33,28 +33,28 @@ class pembayaran_model extends CI_Model
             $data = [
                 "bukti_pembayaran" => "Gambar Salah"
             ];
-            $this->db->where('id_booking', $id_booking);
-            $this->db->update('booking', $data);
+            $this->db->where('id_invoice', $id_invoice);
+            $this->db->update('invoice', $data);
         } else {
             $data = [
                 "status_pembayaran" => $this->input->post('status_pembayaran'),
                 "total_sudah_dibayar" => $this->input->post('total_sudah_dibayar')
             ];
-            $this->db->where('id_booking', $id_booking);
-            $this->db->update('booking', $data);
+            $this->db->where('id_invoice', $id_invoice);
+            $this->db->update('invoice', $data);
         }
     }
 
     public function cariDetail($keyword)
     {
-        $query = $this->db->query("SELECT * FROM booking where id_detail_menu like '%$keyword%' ");
+        $query = $this->db->query("SELECT * FROM invoice where id_detail_menu like '%$keyword%' ");
         return $query->result_array();
     }
 
     public function delete($id)
     {
-        $this->db->where('id_booking', $id);
-        $this->db->delete('booking');
+        $this->db->where('id_invoice', $id);
+        $this->db->delete('invoice');
     }
 
     public function save()
@@ -62,14 +62,14 @@ class pembayaran_model extends CI_Model
         // Upload Gambar
         if (empty($_FILES['bukti_pembayaran']['name'])) {
             $data = [
-                "id_booking" => $this->session->userdata('id_booking'),
+                "id_invoice" => $this->session->userdata('id_invoice'),
                 "bukti_pembayaran" => 'Tidak Ada Gambar'
             ];
-            $this->db->insert('booking', $data);
+            $this->db->insert('invoice', $data);
         } else {
             $file_name = $_FILES['bukti_pembayaran']['name'];
             $newfile_name = str_replace(' ', '', $file_name);
-            $config['upload_path']          = './assets/dataresto/booking/';
+            $config['upload_path']          = './assets/dataresto/invoice/';
             $config['allowed_types']        = 'jpg|png';
             $newName = date('dmYHis') . $newfile_name;
             $config['file_name']         = $newName;
@@ -79,10 +79,10 @@ class pembayaran_model extends CI_Model
             if ($this->upload->do_upload('bukti_pembayaran')) {
                 $this->upload->data('file_name');
                 $data = [
-                    "id_booking" => $this->session->userdata('id_booking'),
+                    "id_invoice" => $this->session->userdata('id_invoice'),
                     "bukti_pembayaran" => $newName
                 ];
-                $this->db->insert('booking', $data);
+                $this->db->insert('invoice', $data);
             }
         }
     }
@@ -107,7 +107,7 @@ class pembayaran_model extends CI_Model
             ];
 
             $this->db->where('id_detail_menu', $invoice);
-            $this->db->update('booking', $data);
+            $this->db->update('invoice', $data);
         }
     }
 }

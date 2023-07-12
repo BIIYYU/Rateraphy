@@ -39,7 +39,7 @@ class C_pasien extends CI_Controller
         } else {
             $this->model->tambah();
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Menambah Data Menu
+           Sukses Menambah Data Pasien
           </div>');
             redirect('C_pasien');
         }
@@ -54,6 +54,49 @@ class C_pasien extends CI_Controller
         $this->load->view('admin/layout/side-header');
         $this->load->view('admin/pasien/detail');
         $this->load->view('admin/layout/footer');
+    }
+
+    public function proses($id)
+    {
+        $data['title'] = 'Proses Pasien';
+        $data['pasien'] = $this->model->getpasienById($id);
+        $data['invoice'] = $this->model->getInvoiceByID($id); 
+        $this->load->view('admin/layout/header', $data);
+        $this->load->view('admin/layout/side');
+        $this->load->view('admin/layout/side-header');
+        $this->load->view('admin/pasien/V_proses_pasien');
+        $this->load->view('admin/layout/footer');
+    }
+
+    public function proses_tambah_invoice()
+    {
+        $this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
+        $this->form_validation->set_rules('umur', 'umur', 'required');
+        $this->form_validation->set_rules('alamat', 'alamat', 'required');
+        $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
+        $this->form_validation->set_rules('tanggal_teraphy', 'tanggal_teraphy', 'required');
+        $this->form_validation->set_rules('jam_teraphy', 'jam_teraphy', 'required');
+        $this->form_validation->set_rules('keluhan', 'keluhan', 'required');
+        $this->form_validation->set_rules('diagnosa', 'diagnosa', 'required');
+        $this->form_validation->set_rules('intervensi', 'intervensi', 'required');
+        $this->form_validation->set_rules('terapi_ke', 'terapi_ke', 'required');
+        
+        // echo "<pre>";
+        // print_r ($data);
+        // echo "</pre>";
+        // exit();
+        
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Ditambahkan</div>');
+            redirect('C_pasien');
+        } else {
+            $this->model->proses_invoice();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+           Sukses Menambah Data Invoice
+          </div>');
+            redirect('C_pasien');
+        }
     }
 
     public function edit($id)
@@ -75,13 +118,13 @@ class C_pasien extends CI_Controller
         $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Gagal Mengedit Menu
+            Gagal Mengedit Pasien
            </div>');
             redirect('C_pasien');
         } else {
             $this->model->edit();
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Mengedit Menu
+           Sukses Mengedit Pasien
           </div>');
             redirect('C_pasien');
         }
@@ -91,7 +134,7 @@ class C_pasien extends CI_Controller
     {
         $this->model->delete($id);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-           Sukses Menghapus Menu.
+           Sukses Menghapus Pasien.
           </div>');
         redirect('C_pasien');
     }
