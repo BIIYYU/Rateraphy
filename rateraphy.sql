@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2023 at 07:13 PM
+-- Generation Time: Jul 14, 2023 at 02:09 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -88,10 +88,11 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`id_invoice`, `nama_pasien`, `nik`, `umur`, `alamat`, `tanggal_teraphy`, `jam_teraphy`, `keluhan`, `diagnosa`, `intervensi`, `terapi_ke`, `id_pasien`, `status_transaksi`) VALUES
-(26, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-11', '12:02', 'Pusing', 'asd', 'asd', '1', NULL, NULL),
-(27, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-12', '21:17', 'Mual,Pegal-pegal', 'asd', 'qwr', '1', 24, NULL),
-(28, 'Laura', 1231, '26', 'guntung', '2023-07-13', '21:40', 'Mual,Pegal-pegal', 'asd', 'Assesment,UPS', '1', 25, NULL),
-(29, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-12', '11:32', 'Mual,Pusing', 'qweas', 'Assesment,UPS', '1', 24, b'1');
+(35, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-13', '12:31', 'Pegal-pegal', 'as', 'UPS', '1', 24, b'1'),
+(36, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-14', '12:14', 'Pusing', 'asca', 'UPS', '2', 24, b'1'),
+(37, 'Laura', 1231, '26', 'guntung', '2023-07-13', '12:12', 'Pusing', 'qwe', 'Assesment,UPS', '2', 25, b'1'),
+(38, 'Lala', 12313, '19', 'test alamat', '2023-07-21', '11:11', 'Pegal-pegal,Pusing', 'qweqwe', 'Assesment,UPS', '3', 26, b'0'),
+(39, 'Laura', 1231, '26', 'guntung', '2023-07-27', '12:03', 'Pegal-pegal,Pusing', '123', 'Assesment,UPS', '2', 25, b'0');
 
 -- --------------------------------------------------------
 
@@ -252,7 +253,8 @@ CREATE TABLE `pasien` (
 
 INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `alamat`, `umur`, `nik`) VALUES
 (24, 'Abiyyu Aqil', 'Perumahan STI PUSAT C01-C02', '18', 47561),
-(25, 'Laura', 'guntung', '26', 1231);
+(25, 'Laura', 'guntung', '26', 1231),
+(26, 'Lala', 'test alamat', '19', 12313);
 
 -- --------------------------------------------------------
 
@@ -452,7 +454,7 @@ ALTER TABLE `gambar_menu`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `keluhan`
@@ -482,7 +484,7 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
