@@ -8,7 +8,7 @@ class M_invoice extends CI_Model
     public function getAllinvoice()
     {
 
-        $query = $this->db->query("SELECT * FROM invoice");
+        $query = $this->db->query("SELECT * FROM invoice WHERE status_transaksi = '0'");
         return $query->result_array();
     }
 
@@ -23,32 +23,6 @@ class M_invoice extends CI_Model
     {
         $this->db->where('id_invoice', $id);
         $this->db->update('invoice', $data);
-    }
-
-    public function edit()
-    {
-        $id_invoice = $this->input->post('id_invoice');
-        if ($this->input->post('status_pembayaran') == "Belum Bayar DP") {
-            $getDataGambar = $this->db->query("SELECT * FROM invoice WHERE id_invoice = $id_invoice");
-
-            foreach ($getDataGambar->result_array() as $gambar) {
-                $gambar_bukti = $gambar['bukti_pembayaran'];
-            }
-            $pathFBukti = "assets/dataresto/bukti_bayar/";
-            unlink($pathFBukti . $gambar_bukti);
-            $data = [
-                "bukti_pembayaran" => "Gambar Salah"
-            ];
-            $this->db->where('id_invoice', $id_invoice);
-            $this->db->update('invoice', $data);
-        } else {
-            $data = [
-                "status_pembayaran" => $this->input->post('status_pembayaran'),
-                "total_sudah_dibayar" => $this->input->post('total_sudah_dibayar')
-            ];
-            $this->db->where('id_invoice', $id_invoice);
-            $this->db->update('invoice', $data);
-        }
     }
 
     public function cariDetail($keyword)
@@ -96,7 +70,6 @@ class M_invoice extends CI_Model
     public function uploadBuktiBayar()
     {
         $invoice = $this->input->post('invoice');
-
 
         $file_name1 = $_FILES['bukti_pembayaran']['name'];
         $newfile_name1 = str_replace(' ', '', $file_name1);

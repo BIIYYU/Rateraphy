@@ -28,9 +28,6 @@ class C_pasien extends CI_Controller
 
     public function getkeluhan(){
         $list_keluhan = $this->model->getkeluhan();
-        // $this->load->model('Makanan_model');
-
-        // $data['list_keluhan'] = $this->model->getkeluhan();
 
         if(!empty($list_keluhan)){
             $hasil =  array(
@@ -47,7 +44,6 @@ class C_pasien extends CI_Controller
             );
         }
 
-        // echo json_encode($data['list_keluhan']);
         echo json_encode ($list_keluhan);
     }
 
@@ -125,21 +121,27 @@ class C_pasien extends CI_Controller
             $teraphy_arr = implode(',', $arr_teraphy);
         }
 
-        $data = [
-            "id_pasien"        => $id_pasien,
-            "nama_pasien"      => $nama_pasien,
-            "umur"             => $umur,
-            "alamat"           => $alamat,
-            "nik"              => $nik,
-            "tanggal_teraphy"  => $tanggal_teraphy,
-            "jam_teraphy"      => $jam_teraphy,
-            "keluhan"          => $keluhan_arr,
-            "diagnosa"         => $diagnosa,
-            "intervensi"       => $teraphy_arr,
-            "terapi_ke"        => $terapi_ke,
-            "status_transaksi" => '0'
-        ];
 
+
+        $data = array(
+            'id_pasien'        => $id_pasien,
+            'nama_pasien'      => $nama_pasien,
+            'umur'             => $umur,
+            'alamat'           => $alamat,
+            'nik'              => $nik,
+            'tanggal_teraphy'  => $tanggal_teraphy,
+            'jam_teraphy'      => $jam_teraphy,
+            'keluhan'          => $keluhan_arr,
+            'diagnosa'         => $diagnosa,
+            'intervensi'       => $teraphy_arr,
+            'terapi_ke'        => $terapi_ke,
+            'status_transaksi' => 0,
+        );
+
+        // echo "<pre>";
+        // print_r ($data);
+        // echo "</pre>";exit();
+        
         $cekhead = $this->model->cek_invoice($id_pasien, $nama_pasien, $nik, $tanggal_teraphy, $jam_teraphy);
 
         if($cekhead->num_rows() > 0 ){

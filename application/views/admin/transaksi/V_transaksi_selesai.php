@@ -80,40 +80,37 @@
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">
                             <thead class="thead-dark">
                                 <tr role="row">
-                                    <th>Kode Pembayaran</th>
-                                    <th>Nama Pemesan</th>
-                                    <th>Tanggal Reservasi</th>
-                                    <th>Total Pembayaran</th>
-                                    <th>Status Pembayaran</th>
+                                    <th>No</th>
+                                    <th>Nama Pasien</th>
+                                    <th>Umur</th>
+                                    <th>NIK</th>
+                                    <th>Tanggal Transaksi</th>
+                                    <th>Intervensi</th>
+                                    <th>Total Bayar</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $no = 1;
-                                foreach ($booking as $mk) {
+                                $no = 0;
+                                foreach ($transaksi as $dt_transaksi) {
+                                    $no++;
                                 ?>
                                     <tr>
-                                        <td><?= $mk['id_detail_menu'] ?></td>
-                                        <td><?= $mk['nama_pemesan'] ?></td>
-                                        <td><?= date("d-m-Y", strtotime($mk['tanggal_reservasi'])) ?></td>
-                                        <td>Rp. <?= number_format($mk['total_pembayaran'], 0, ',', '.')  ?></td>
-                                        <td><?= $mk['status_pembayaran'] ?></td>
-
+                                        <td><?= $no; ?></td>
+                                        <td><?= $dt_transaksi['nama_pasien'] ?></td>
+                                        <td><?= $dt_transaksi['umur'] ?></td>
+                                        <td><?= $dt_transaksi['nik'] ?></td>
+                                        <td><?= date("d-m-Y", strtotime($dt_transaksi['tanggal_teraphy'])) ?></td>
+                                        <td><?= $dt_transaksi['intervensi'] ?></td>
+                                        <!-- <td>Rp. <?= number_format($dt_transaksi['total_pembayaran'], 0, ',', '.')  ?></td> -->
+                                        <td>proses</td>
                                         <td>
-                                            <?php
-                                            if ($mk['status_pembayaran'] == "Sudah Bayar DP") {
-                                            ?>
-                                                <a href="<?php base_url() ?>admin/pos/<?= $mk['id_detail_menu'] ?>" class="btn btn-sm btn-success"></i>Kasir</a>
-                                            <?php
-                                            }
-                                            ?>
-                                            <a href="<?php base_url() ?>penjualan/detail/<?= $mk['id_detail_menu'] ?>" class="btn btn-sm btn-warning"></i>Detail</a>
-                                            <a href="<?php base_url() ?>penjualan/cetakNotaPenjualan/<?= $mk['id_detail_menu'] ?>" target="_blank" class="btn btn-sm btn-danger"><i class="fa fa-print"></i> Cetak Nota</a>
+                                            <a href="<?php base_url() ?>penjualan/detail/<?= $dt_transaksi['id_invoice'] ?>" class="btn btn-sm btn-warning"></i>Detail</a>
+                                            <a href="<?php base_url() ?>penjualan/cetakNotaPenjualan/<?= $dt_transaksi['id_invoice'] ?>" target="_blank" class="btn btn-sm btn-danger"><i class="fa fa-print"></i> Cetak Nota</a>
                                         </td>
                                     </tr>
                                 <?php
-                                    $no++;
                                 }
                                 ?>
                             </tbody>

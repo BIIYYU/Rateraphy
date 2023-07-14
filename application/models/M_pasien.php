@@ -61,18 +61,18 @@ class M_pasien extends CI_Model
 
     public function proses_invoice($data)
     {
-        $this->db->trans_begin();
-        $this->db->insert('invoice', $data);
-        if ($this->db->trans_status() == FALSE) {
-            $this->db->trans_rollback();
-            $result = 0;
-            } else {
-                $this->db->trans_commit();
-                $result = 1;
-            }
-            return $result;
-        return TRUE;
+        // $this->db->trans_begin();
         // $this->db->insert('invoice', $data);
+        // if ($this->db->trans_status() == FALSE) {
+        //     $this->db->trans_rollback();
+        //     $result = 0;
+        //     } else {
+        //         $this->db->trans_commit();
+        //         $result = 1;
+        //     }
+        //     return $result;
+        // return TRUE;
+        $this->db->insert('invoice', $data);
     }
 
     public function edit()

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Penjualan extends CI_Controller
+class C_transaksi_selesai extends CI_Controller
 {
     public function __construct()
     {
@@ -9,83 +9,73 @@ class Penjualan extends CI_Controller
         if (empty($this->session->userdata('id_pegawai'))) {
             redirect('auth/loginPegawai', 'refresh');
         }
-        $this->load->model('penjualan_model');
+        $this->load->model('M_transaksi_selesai');
+        $this->model = $this->{'M_transaksi_selesai'};
     }
 
     public function index()
     {
-        $data['title'] = 'Laporan Penjualan';
-        $data['booking'] = $this->penjualan_model->getAllBooking();
+        $data['title'] = 'Transaksi Selesai';
+        $data['transaksi'] = $this->model->getTransaksiSelesai();
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
-        $this->load->view('admin/penjualan/index');
+        $this->load->view('admin/transaksi/V_transaksi_selesai');
         $this->load->view('admin/layout/footer');
     }
-
-    // public function detail($id)
-    // {
-    //     $data['title'] = 'Detail';
-    //     $data['booking'] = $this->penjualan_model->getBookingById($id);
-    //     $this->load->view('admin/layout/header', $data);
-    //     $this->load->view('admin/layout/side');
-    //     $this->load->view('admin/layout/side-header');
-    //     $this->load->view('admin/penjualan/detail');
-    //     $this->load->view('admin/layout/footer');
-    // }
 
     public function detail($invoice)
     {
         $data['title'] = 'Detail';
-        // $data['booking'] = $this->penjualan_model->getBookingById($id);
-        $data['book'] = $this->penjualan_model->getBookingByInvoice($invoice);
-        $data['menu'] = $this->penjualan_model->getTransaksiByInvoice($invoice);
+        // $data['booking'] = $this->model->getBookingById($id);
+        $data['book'] = $this->model->getBookingByInvoice($invoice);
+        $data['menu'] = $this->model->getTransaksiByInvoice($invoice);
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
-        $this->load->view('admin/penjualan/detail');
+        $this->load->view('admin/transaksi/detail');
         $this->load->view('admin/layout/footer');
     }
 
-    public function filterLaporanPenjualan()
+    public function filterLaporantransaksi()
     {
         $startDate = $this->input->post('startDate');
         $endDate = $this->input->post('endDate');
 
-        $data['title'] = 'Laporan Penjualan';
+        $data['title'] = 'Transaksi Selesai';
         $data['startDate'] = $startDate;
         $data['endDate'] = $endDate;
-        $data['booking'] = $this->penjualan_model->getBookingByDate($startDate, $endDate);
+        $data['booking'] = $this->model->getBookingByDate($startDate, $endDate);
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
-        $this->load->view('admin/penjualan/index');
+        $this->load->view('admin/transaksi/index');
         $this->load->view('admin/layout/footer');
         // echo json_encode($data);
     }
 
-    public function filterCetakPenjualan()
+    public function filterCetaktransaksi()
     {
         $startDate = $this->input->post('startDate');
         $endDate = $this->input->post('endDate');
         $profil = $this->getProfilUsaha();
         $data['nama_usaha'] = $profil['nama_usaha'];
         $data['alamat'] = $profil['alamat'];
-        $data['title'] = 'Laporan Penjualan';
+        $data['title'] = 'Transaksi Selesai';
         $data['startDate'] = $startDate;
         $data['endDate'] = $endDate;
-        $data['booking'] = $this->penjualan_model->getBookingByDate($startDate, $endDate);
-        $this->load->view('admin/penjualan/invoice', $data);
+        $data['booking'] = $this->model->getBookingByDate($startDate, $endDate);
+        $this->load->view('admin/transaksi/invoice', $data);
     }
 
-    public function cetakLaporanPenjualan()
+    public function cetakLaporantransaksi()
     {
         $profil = $this->getProfilUsaha();
         $data['nama_usaha'] = $profil['nama_usaha'];
         $data['alamat'] = $profil['alamat'];
-        $data['title'] = 'Laporan Penjualan';
-        $data['booking'] = $this->penjualan_model->getAllBooking();
-        $this->load->view('admin/penjualan/invoice', $data);
+        $data['title'] = 'Transaksi Selesai';
+        $data['booking'] = $this->model->getAllBooking();
+        $this->load->view('admin/transaksi/invoice', $data);
     }
 
     public function getProfilUsaha()
@@ -106,14 +96,14 @@ class Penjualan extends CI_Controller
         return $arr;
     }
 
-    public function cetakNotaPenjualan($invoice)
+    public function cetakNotatransaksi($invoice)
     {
         $profil = $this->getProfilUsaha();
         $data['nama_usaha'] = $profil['nama_usaha'];
         $data['alamat'] = $profil['alamat'];
-        $data['title'] = 'Nota Penjualan';
-        $data['book'] = $this->penjualan_model->getBookingByInvoice($invoice);
-        $data['menu'] = $this->penjualan_model->getTransaksiByInvoice($invoice);
-        $this->load->view('admin/penjualan/invoice2', $data);
+        $data['title'] = 'Nota transaksi';
+        $data['book'] = $this->model->getBookingByInvoice($invoice);
+        $data['menu'] = $this->model->getTransaksiByInvoice($invoice);
+        $this->load->view('admin/transaksi/invoice2', $data);
     }
 }

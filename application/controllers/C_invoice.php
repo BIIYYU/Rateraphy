@@ -108,7 +108,7 @@ class C_invoice extends CI_Controller
             "diagnosa"         => $diagnosa,
             "intervensi"       => $intervensi,
             "terapi_ke"        => $terapi_ke,
-            "status_transaksi" => '1'
+            "status_transaksi" => 1,
         ];
 
         $this->M_invoice->komplit($data, $id_invoice);

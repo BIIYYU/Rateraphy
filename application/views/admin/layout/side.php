@@ -43,7 +43,7 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>penjualan">
+                        <a class="nav-link" href="<?= base_url() ?>C_transaksi_selesai">
                             <i class="fa fa-book text-primary"></i>
                             <span class="nav-link-text">Transaksi Selesai</span>
                         </a>
