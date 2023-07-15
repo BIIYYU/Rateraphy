@@ -7,15 +7,19 @@ class M_invoice extends CI_Model
 {
     public function getAllinvoice()
     {
-
         $query = $this->db->query("SELECT * FROM invoice WHERE status_transaksi = '0'");
         return $query->result_array();
     }
 
     public function getinvoiceById($id)
     {
+        $query = $this->db->query("SELECT * FROM invoice WHERE id_invoice = '$id'");
+        return $query->result_array();
+    }
 
-        $query = $this->db->query("SELECT * FROM invoice WHERE id_invoice = $id");
+    public function getkeluhan_id($id_pasien)
+    {
+        $query = $this->db->query("SELECT keluhan FROM invoice WHERE id_pasien = '$id_pasien'");
         return $query->result_array();
     }
 

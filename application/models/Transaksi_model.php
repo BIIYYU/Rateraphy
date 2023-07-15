@@ -12,33 +12,33 @@ class Transaksi_model extends CI_Model
     public function getTotalPendapatanHariIni()
     {
         $today = date('y-m-d');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_pendapatan FROM booking WHERE tanggal_pesan LIKE '%$today%'");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_pendapatan FROM invoice WHERE tanggal_teraphy LIKE '%$today%'");
         return $query->row();
     }
 
     public function getTotalPendapatanBulanIni()
     {
         $monthly = date('y-m');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_pendapatan_bulan_ini FROM booking WHERE tanggal_pesan LIKE '%$monthly%'");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_pendapatan_bulan_ini FROM invoice WHERE tanggal_teraphy LIKE '%$monthly%'");
         return $query->row();
     }
 
     public function getTotalTransaksiHariIni()
     {
         $today = date('y-m-d');
-        $query = $this->db->query("SELECT COUNT(id_booking) as total_transaksi FROM booking WHERE tanggal_pesan LIKE '%$today%'");
+        $query = $this->db->query("SELECT COUNT(id_invoice) as total_transaksi FROM invoice WHERE tanggal_teraphy LIKE '%$today%'");
         return $query->row();
     }
     public function getTotalTransaksiBulanIni()
     {
         $monthly = date('y-m');
-        $query = $this->db->query("SELECT COUNT(id_booking) as total_transaksi_bulan_ini FROM booking WHERE tanggal_pesan LIKE '%$monthly%'");
+        $query = $this->db->query("SELECT COUNT(id_invoice) as total_transaksi_bulan_ini FROM invoice WHERE tanggal_teraphy LIKE '%$monthly%'");
         return $query->row();
     }
     public function getJanuari()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-01%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-01%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -51,7 +51,7 @@ class Transaksi_model extends CI_Model
     public function getFebruari()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-02%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-02%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -64,7 +64,7 @@ class Transaksi_model extends CI_Model
     public function getMaret()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-03%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-03%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -77,7 +77,7 @@ class Transaksi_model extends CI_Model
     public function getApril()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-04%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-04%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -90,7 +90,7 @@ class Transaksi_model extends CI_Model
     public function getMei()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-05%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-05%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -103,7 +103,7 @@ class Transaksi_model extends CI_Model
     public function getJuni()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-06%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-06%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -116,7 +116,7 @@ class Transaksi_model extends CI_Model
     public function getJuli()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-07%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-07%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -129,7 +129,7 @@ class Transaksi_model extends CI_Model
     public function getAgustus()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-08%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-08%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -142,7 +142,7 @@ class Transaksi_model extends CI_Model
     public function getSeptember()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-09%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-09%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -155,7 +155,7 @@ class Transaksi_model extends CI_Model
     public function getOktober()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-10%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-10%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -168,7 +168,7 @@ class Transaksi_model extends CI_Model
     public function getNovember()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-11%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-11%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -181,7 +181,7 @@ class Transaksi_model extends CI_Model
     public function getDesember()
     {
         $year = date('y');
-        $query = $this->db->query("SELECT SUM(total_sudah_dibayar) as total_harga FROM booking WHERE tanggal_pesan LIKE '%$year-12%' AND total_sudah_dibayar > 0");
+        $query = $this->db->query("SELECT SUM(total_harga) as total_harga FROM invoice WHERE tanggal_teraphy LIKE '%$year-12%' AND total_harga > 0");
         if ($query->row()->total_harga != NULL) {
             return $query->row();
         } else {
@@ -196,7 +196,7 @@ class Transaksi_model extends CI_Model
         $invoice = $this->input->post('invoice');
         $data_booking = [
             "total_pembayaran" => $this->input->post('total_harga_baru'),
-            "total_sudah_dibayar" =>  $this->input->post('total_harga_baru'),
+            "total_harga" =>  $this->input->post('total_harga_baru'),
             "status_pembayaran" =>  'Pesanan Selesai',
         ];
         $this->db->where("id_detail_menu", $invoice);

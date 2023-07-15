@@ -36,11 +36,38 @@ class C_invoice extends CI_Controller
         }
         $data['title'] = 'Daftar Riwayat Pemesanan';
         $data['invoice'] = $this->M_invoice->getAllinvoice();
+        
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
         $this->load->view('admin/invoice/V_invoice');
         $this->load->view('admin/layout/footer');
+    }
+
+    function getDataKeluhan()
+    {
+        // $lineID         = $this->input->post('headerid');
+        
+        $id_pasien    = $this->input->post('id_pasien');
+        $data_keluhan = $this->M_invoice->getkeluhan_id($id_pasien);
+
+        print_r($id_pasien); exit();
+        if (count($data_keluhan) > 0) {
+            $result = array(
+                'status'  => true,
+                'vstatus' => 'berhasil',
+                'pesan'   => "Berhasil Memuat data!",
+                'data'    => $data_keluhan,
+            );
+        } else {
+            $result = array(
+                'status'  => false,
+                'vstatus' => 'gagal',
+                'pesan'   => "Data detail tidak ditemukan!!!",
+            );
+        }
+
+        echo json_encode($result);
     }
 
     public function proses($id)

@@ -104,6 +104,7 @@ class C_pasien extends CI_Controller
         $diagnosa        = $this->input->post('diagnosa');
         $intervensi      = $this->input->post('intervensi');
         $terapi_ke       = $this->input->post('terapi_ke');
+        $total_harga     = $this->input->post('total_harga');
 
         $keluhan_arr = '';
         if(isset($keluhan)){
@@ -121,8 +122,6 @@ class C_pasien extends CI_Controller
             $teraphy_arr = implode(',', $arr_teraphy);
         }
 
-
-
         $data = array(
             'id_pasien'        => $id_pasien,
             'nama_pasien'      => $nama_pasien,
@@ -136,6 +135,7 @@ class C_pasien extends CI_Controller
             'intervensi'       => $teraphy_arr,
             'terapi_ke'        => $terapi_ke,
             'status_transaksi' => 0,
+            'total_harga'      => $total_harga,
         );
 
         // echo "<pre>";

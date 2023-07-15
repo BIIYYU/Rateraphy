@@ -74,15 +74,20 @@
                         </div>
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Intervensi</label>
-                            <select class="form-control select2" multiple name="intervensi[]" placeholder="Pilih">
-                                <?php foreach ($teraphy as $dt_teraphy) { ?>
-                                    <option value="<?= $dt_teraphy['nama_teraphy']; ?>"><?= $dt_teraphy['nama_teraphy']; ?></option>
+                            <select class="form-control select2" multiple name="intervensi[]" id="intervensi" placeholder="Pilih">
+                                <?php foreach ($teraphy as $dt_teraphy) {
+                                    $harga = "Rp " . number_format($dt_teraphy['harga'],2,',','.'); ?>
+                                    <option data-price="<?= $dt_teraphy['harga']?>" value="<?= $dt_teraphy['nama_teraphy']; ?>"><?= $dt_teraphy['nama_teraphy']; ?> | <?= $harga; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Terapi Ke</label>
                             <input value="" type="number" class="form-control" name="terapi_ke" placeholder="Terapi Ke" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="textarea-input" class=" form-control-label">Total Harga</label>
+                            <input value="" type="number" class="form-control total_harga" name="total_harga" readonly>
                         </div>
                          <div class="text-center mb-3">
                                 <button type="submit" class="btn btn-success btn-sm">Simpan Invoice</button>
@@ -170,5 +175,15 @@
             }
         });
     }
+
+    $('#intervensi').on('change', function(){
+        let harga = 0 ;
+        $('#intervensi').find('option:selected').each(function(){
+            harga += $(this).data('price');
+        });
+        console.log(harga);
+
+        $('.total_harga').val(harga);
+    });
 
 </script>

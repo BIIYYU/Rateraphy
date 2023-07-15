@@ -31,7 +31,7 @@
                         <?php
                         // if(isset())
                         foreach ($invoice as $dt_invoice) { ?>
-                            <input type="hidden" value="<?= $dt_invoice['id_pasien'] ?>" name="id_pasien">
+                            <input type="hidden" value="<?= $dt_invoice['id_pasien'] ?>" name="id_pasien" id="id_pasien">
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Nama pasien</label>
                                 <input value="<?= $dt_invoice['nama_pasien'] ?>" type="text" required class="form-control nama_pasien" name="nama_pasien" readonly>
@@ -60,11 +60,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Keluhan</label>
-                                <select class="form-control select2" multiple name="keluhan[]" placeholder="Pilih">
-                                    <?php foreach ($keluhan as $dt_keluhan) { ?>
-                                        <option value="<?= $dt_keluhan['keluhan']; ?>"><?= $dt_keluhan['keluhan']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                    <select class="form-control select2" multiple name="keluhan[]" placeholder="Pilih">
+                                        <option value="<?= $dt_invoice['keluhan']; ?>"><?= $dt_invoice['keluhan']; ?></option>
+                                    </select>
                             </div>
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Diagnosa FT</label>
@@ -77,6 +75,10 @@
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Terapi Ke</label>
                                 <input value="<?= $dt_invoice['terapi_ke'] ?>" type="number" class="form-control" name="terapi_ke" placeholder="Terapi Ke" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="textarea-input" class=" form-control-label">Total Harga</label>
+                                <input value="<?= $dt_invoice['total_harga'] ?>" type="number" class="form-control" name="total_harga" placeholder="Total Harga" readonly>
                             </div>
                         <?php }
                         ?>
@@ -144,17 +146,19 @@
 
     $(document).ready(function(){
 
-        // GetKeluhan();
-
+        GetKeluhan();
     });
 
     function GetKeluhan() {
     
+        let id = $('#id_pasien').val();
+
+        console.log(id)
         $.ajax({
         type: 'GET',
-            url: `<?= base_url() ?>C_pasien/getkeluhan/`,
+            url: `<?= base_url() ?>C_invoice/getDataKeluhan/`,
             dataType: 'json',
-            data: '',
+            data: id,
             success: function(hasil) {
                 let isi = '';
                 if(hasil.length > 0){
@@ -162,7 +166,7 @@
                         isi +=`<option value="${item.keluhan}">${item.keluhan}</option>`;
                     });
                 }
-                console.log(isi)
+                // console.log(isi)
 
                 $('#list_keluhan').empty().append(isi);
             }
