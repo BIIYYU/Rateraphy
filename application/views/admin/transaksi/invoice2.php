@@ -11,6 +11,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
+<?php foreach($intervensi as $dt_invoice){
+    $teraphy = $dt_invoice['terteraphy'];
+} ?>
+
 <body>
     <div id="invoice">
         <div class="invoice overflow-auto">
@@ -39,48 +43,51 @@
                     <table border="0" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th class="text-left">Menu</th>
-                                <th class="text-right">Harga Menu(Satuan)</th>
-                                <th class="text-right">Jumlah Menu</th>
-                                <th class="text-right">TOTAL</th>
+                                <th class="text-left">Nama Pasien</th>
+                                <th class="text-left">Umur</th>
+                                <th class="text-left">NIK</th>
+                                <th class="text-left">Alamat</th>
+                                <th class="text-left">Keluhan</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $no = 0;
-                            foreach ($menu as $m) {
-                                $no++;
-                                $harga_satuan = $m['sub_total'] / $m['jumlah'];
-                            ?>
+                            foreach ($invoice as $dt_invoice) {
+                                $no++; ?>
+                                <!-- // $harga_satuan = $dt_invoice['sub_total'] / $dt_invoice['jumlah']; -->
                                 <tr>
-                                    <td class="no"><?= $no ?></td>
-                                    <td class="text-left">
-                                        <h3><?= $m['nama_makanan'] ?></h3>
-                                    </td>
-                                    <td class="unit">Rp. <?= number_format($harga_satuan, 0, ',', '.') ?></td>
-                                    <td class="qty"><?= $m['jumlah'] ?></td>
-                                    <td class="total">Rp. <?= number_format($m['sub_total'], 0, ',', '.') ?></td>
+                                    <td class="text-left"><h3><?= $dt_invoice['nama_pasien'] ?></h3></td>
+                                    <td class="text-left"><?= $dt_invoice['umur'] ?></td>
+                                    <td class="text-left"><?= $dt_invoice['nik'] ?></td>
+                                    <td class="text-left"><?= $dt_invoice['alamat'] ?></td>
+                                    <td class="text-left"><?= $dt_invoice['keluhan'] ?></td>
                                 </tr>
-                            <?php
-                            }
-                            ?>
+                            <?php } ?>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td></td>
+                                <td><h3>Intervensi</h3></td>
+                                <td><h3>Harga</h3></td>
                             </tr>
-                            <tr>
-                            </tr>
-                            <tr>
-                                <td colspan="2"></td>
-                                <td colspan="2">TOTAL</td>
-                                <td>Rp. <?= number_format($book->total_pembayaran, 0, ',', '.') ?></td>
+                            <?php foreach ($intervensi as $dt_intervensi){ ?>
+                                <tr class="text-left">
+                                    <td><?= $dt_intervensi['terteraphy'] ?></td>
+                                    <td><?= $dt_intervensi['terteraphy'] ?></td>
+                                </tr>
+                            <?php } ?>
+                                    <td colspan="1">Total Biaya</td>
+                                <?php
+                                $TotalHarga = '';
+                                if(isset($invoice->total_harga)){
+                                    $TotalHarga = number_format($book->total_harga, 0, ',', '.');
+                                } ?>
+                                <td>Rp. <?= $TotalHarga; ?></td>
                             </tr>
                         </tfoot>
                     </table>
                     <div class="notices">
-                        <div>Terimakasih telah singgah di restoran kami.</div>
+                        <div>Terimakasih telah berobat diklinik kami.</div>
                     </div>
                 </main>
             </div>

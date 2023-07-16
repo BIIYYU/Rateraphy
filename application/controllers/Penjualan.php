@@ -39,7 +39,7 @@ class Penjualan extends CI_Controller
         $data['title'] = 'Detail';
         // $data['booking'] = $this->penjualan_model->getBookingById($id);
         $data['book'] = $this->penjualan_model->getBookingByInvoice($invoice);
-        $data['menu'] = $this->penjualan_model->getTransaksiByInvoice($invoice);
+        $data['invoice'] = $this->penjualan_model->getTransaksiByInvoice($invoice);
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
@@ -113,7 +113,8 @@ class Penjualan extends CI_Controller
         $data['alamat'] = $profil['alamat'];
         $data['title'] = 'Nota Penjualan';
         $data['book'] = $this->penjualan_model->getBookingByInvoice($invoice);
-        $data['menu'] = $this->penjualan_model->getTransaksiByInvoice($invoice);
+        $data['intervensi'] = $this->penjualan_model->getintervensi($invoice);
+        $data['invoice'] = $this->penjualan_model->getTransaksiByInvoice($invoice);
         $this->load->view('admin/transaksi/invoice2', $data);
     }
 }
