@@ -74,13 +74,14 @@
                         </div>
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Intervensi</label>
-                            <select class="form-control select2" multiple name="intervensi[]" id="intervensi" placeholder="Pilih">
+                            <select class="form-control select2 intervensi" multiple name="intervensi[]" id="intervensi" placeholder="Pilih">
                                 <?php foreach ($teraphy as $dt_teraphy) {
                                     $harga = "Rp " . number_format($dt_teraphy['harga'],2,',','.'); ?>
                                     <option data-price="<?= $dt_teraphy['harga']?>" value="<?= $dt_teraphy['nama_teraphy']; ?>"><?= $dt_teraphy['nama_teraphy']; ?> | <?= $harga; ?></option>
                                 <?php } ?>
                             </select>
-                        </div>
+                                <input type="text" class="form-control" name="harga_teraphy" id="harga_teraphy" value="" >
+                            </div>
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Terapi Ke</label>
                             <input value="" type="number" class="form-control" name="terapi_ke" placeholder="Terapi Ke" required>
@@ -178,12 +179,30 @@
 
     $('#intervensi').on('change', function(){
         let harga = 0 ;
+        let harga_select = [];
         $('#intervensi').find('option:selected').each(function(){
             harga += $(this).data('price');
+            harga_teraphy = $(this).data('price');
         });
-        console.log(harga);
+        // console.log(harga_teraphy);
 
         $('.total_harga').val(harga);
+    });
+    
+    var selectedValues = [];
+    
+    $('.intervensi').on('change', function() {
+        var selectedOptions = $(this).find('option:selected');
+        selectedValues = [];
+        
+        selectedOptions.each(function() {
+            var selectedValue = $(this).data('price');
+            selectedValues.push(selectedValue);
+        });
+        
+        $('#harga_teraphy').val(selectedValues);
+    // Print the selected values
+    // console.log(selectedValues);
     });
 
 </script>

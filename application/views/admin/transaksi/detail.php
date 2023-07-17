@@ -7,8 +7,8 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="<?= base_url() ?>admin"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="<?= base_url() ?>penjualan">Riwayat Pemesanan</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Detail Pemesanan</li>
+                            <li class="breadcrumb-item"><a href="<?= base_url() ?>penjualan">Riwayat Transaksi</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Detail Transaksi</li>
                         </ol>
                     </nav>
                 </div>
@@ -23,66 +23,51 @@
             <div class="card">
                 <!-- Card header -->
                 <div class="card-header border-0">
-                    <h3 class="mb-0">Detail Pemesanan</h3>
+                    <h3 class="mb-0">Detail Transaksi</h3>
                 </div>
                 <div class="col-lg-12">
                     <div class="row form-group">
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Kode Pembayaran : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->id_detail_menu ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Nama Pemesan : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->nama_pemesan ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Nomor HP : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->nomor_hp ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Nomor Meja : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->nomor_meja ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Tanggal Transaksi : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= date("d-m-Y", strtotime($book->tanggal_reservasi))  ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">ID Transaksi : </label></div>
+                        <div class="col-12 col-md-9"> <label><?= $book->id_invoice ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Nama Pasien : </label></div>
+                        <div class="col-12 col-md-9"> <label><?= $book->nama_pasien ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Umur : </label></div>
+                        <div class="col-12 col-md-9"> <label><?= $book->umur ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">NIK : </label></div>
+                        <div class="col-12 col-md-9"> <label><?= $book->nik ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Tanggal Teraphy : </label></div>
+                        <div class="col-12 col-md-9"> <label><?= date("d-m-Y", strtotime($book->tanggal_teraphy))  ?></label></div>
                         <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Jam Transaksi : </label></div>
-                        <div class="col-12 col-md-9"> <label><?php date_default_timezone_set('Asia/Jakarta');
-                                                                echo date('H:i:s'); ?></label></div>
-
+                        <div class="col-12 col-md-9"> <label><?= $book->jam_teraphy ?></label></div>
                     </div>
                     <div class="col-lg-12">
                         <div class="row form-group">
-                            <table class="table table-flush">
-                                <thead class="thead-light">
-                                    <tr role="row">
-                                        <th>No</th>
-                                        <th>Menu</th>
-                                        <th>Harga Menu(Satuan)</th>
-                                        <th>Jumlah Menu</th>
-                                        <th>TOTAL</th>
-                                    </tr>
-                                </thead>
+                            <table border="0" cellspacing="0" cellpadding="0">
                                 <tbody>
-                                    <?php
-                                    $no = 0;
-                                    foreach ($menu as $m) {
-                                        $no++;
-                                        $harga_satuan = $m['sub_total'] / $m['jumlah'];
-                                    ?>
-                                        <tr>
-                                            <td><?= $no ?></td>
-                                            <td><?= $m['nama_makanan'] ?></td>
-                                            <td>Rp. <?= number_format($harga_satuan, 0, ',', '.') ?></td>
-                                            <td><?= $m['jumlah'] ?></td>
-                                            <td>Rp. <?= number_format($m['sub_total'], 0, ',', '.') ?></td>
+                                    <tr><td colspan="4"></td></tr>
+                                    <tr><td colspan="4"></td></tr>
+                                    <tr>
+                                        <td class="text-left"><h3>Intervensi</h3></td>
+                                        <!-- <td class="text-left"><h3>Harga</h3></td> -->
+                                    </tr>
+                                    <?php foreach ($intervensi as $dt_intervensi){ ?>
+                                        <tr class="text-left">
+                                            <td class="text-left"><?= $dt_intervensi['teraphy'] ?></td>
+                                            <td class="text-left"> = Rp. <?=number_format($dt_intervensi['harga_teraphy'], 0, ',', '.') ?></td>
                                         </tr>
-                                    <?php
-                                    }
-                                    ?>
+                                    <?php } ?>
+                                    <tr>
+                                            <td colspan="1" class="text-left">Total Biaya</td>
+                                        <?php
+                                        $TotalHarga = '';
+                                        if(isset($invoice)){
+                                            foreach ($invoice as $dt_invoice) {
+                                                $TotalHarga = number_format($dt_invoice['total_harga'], 0, ',', '.');
+                                            } ?>
+                                            <td class="text-left"> = Rp. <?= $TotalHarga; ?></td>
+                                        <?php } ?>
+                                    </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                    </tr>
-                                    <tr>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                        <td colspan="2">TOTAL</td>
-                                        <td>Rp. <?= number_format($book->total_pembayaran, 0, ',', '.') ?></td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

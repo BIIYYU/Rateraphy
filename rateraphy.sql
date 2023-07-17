@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2023 at 02:09 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jul 17, 2023 at 11:41 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `booking` (
   `batas_pembayaran_dp` datetime NOT NULL,
   `status_pembayaran` varchar(250) NOT NULL,
   `bukti_pembayaran` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `booking`
@@ -59,7 +59,7 @@ CREATE TABLE `gambar_menu` (
   `id_gambar` int(11) NOT NULL,
   `id_menu` int(11) NOT NULL,
   `gambar` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -80,19 +80,17 @@ CREATE TABLE `invoice` (
   `intervensi` varchar(255) DEFAULT NULL,
   `terapi_ke` varchar(10) DEFAULT NULL,
   `id_pasien` int(11) DEFAULT NULL,
-  `status_transaksi` bit(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `status_transaksi` bit(1) DEFAULT NULL,
+  `total_harga` varchar(255) DEFAULT NULL,
+  `harga_teraphy` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`id_invoice`, `nama_pasien`, `nik`, `umur`, `alamat`, `tanggal_teraphy`, `jam_teraphy`, `keluhan`, `diagnosa`, `intervensi`, `terapi_ke`, `id_pasien`, `status_transaksi`) VALUES
-(35, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-13', '12:31', 'Pegal-pegal', 'as', 'UPS', '1', 24, b'1'),
-(36, 'Abiyyu Aqil', 47561, '18', 'Perumahan STI PUSAT C01-C02', '2023-07-14', '12:14', 'Pusing', 'asca', 'UPS', '2', 24, b'1'),
-(37, 'Laura', 1231, '26', 'guntung', '2023-07-13', '12:12', 'Pusing', 'qwe', 'Assesment,UPS', '2', 25, b'1'),
-(38, 'Lala', 12313, '19', 'test alamat', '2023-07-21', '11:11', 'Pegal-pegal,Pusing', 'qweqwe', 'Assesment,UPS', '3', 26, b'0'),
-(39, 'Laura', 1231, '26', 'guntung', '2023-07-27', '12:03', 'Pegal-pegal,Pusing', '123', 'Assesment,UPS', '2', 25, b'0');
+INSERT INTO `invoice` (`id_invoice`, `nama_pasien`, `nik`, `umur`, `alamat`, `tanggal_teraphy`, `jam_teraphy`, `keluhan`, `diagnosa`, `intervensi`, `terapi_ke`, `id_pasien`, `status_transaksi`, `total_harga`, `harga_teraphy`) VALUES
+(41, 'Laura', 1231, '26', 'guntung', '2023-07-17', '11:11', 'Mual,Pegal-pegal,Pusing', 'asdad', 'Assesment,UPS', '1', 25, b'1', '45000', '15000,30000');
 
 -- --------------------------------------------------------
 
@@ -112,7 +110,7 @@ CREATE TABLE `invoicew` (
   `diagnosa` text DEFAULT NULL,
   `intervensi` varchar(255) DEFAULT NULL,
   `terapi_ke` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -123,7 +121,7 @@ CREATE TABLE `invoicew` (
 CREATE TABLE `keluhan` (
   `id_keluhan` int(11) NOT NULL,
   `keluhan` varchar(225) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `keluhan`
@@ -147,7 +145,7 @@ CREATE TABLE `lupa_password` (
   `pertanyaankeamanan2` varchar(255) NOT NULL,
   `jawabankeamanan1` varchar(255) NOT NULL,
   `jawabankeamanan2` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `lupa_password`
@@ -172,7 +170,7 @@ CREATE TABLE `menu_dibooking` (
   `jumlah` int(5) NOT NULL,
   `sub_total` int(12) NOT NULL,
   `status_order` varchar(255) NOT NULL DEFAULT 'success'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menu_dibooking`
@@ -224,7 +222,7 @@ CREATE TABLE `metode_pembayaran` (
   `nama_merchant` varchar(250) NOT NULL,
   `atas_nama` varchar(250) NOT NULL,
   `kode_pembayaran` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `metode_pembayaran`
@@ -245,7 +243,7 @@ CREATE TABLE `pasien` (
   `alamat` text NOT NULL,
   `umur` varchar(50) NOT NULL,
   `nik` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pasien`
@@ -271,7 +269,7 @@ CREATE TABLE `pegawai` (
   `telepon` varchar(50) NOT NULL,
   `jenis_kelamin` varchar(50) NOT NULL,
   `jabatan` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pegawai`
@@ -300,7 +298,7 @@ CREATE TABLE `profil_usaha` (
   `foto_usaha_1` text NOT NULL,
   `foto_usaha_2` text NOT NULL,
   `foto_usaha_3` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `profil_usaha`
@@ -321,7 +319,7 @@ CREATE TABLE `teraphy` (
   `deskripsi` text NOT NULL,
   `kode` varchar(50) NOT NULL,
   `harga` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `teraphy`
@@ -343,7 +341,7 @@ CREATE TABLE `user` (
   `level_user` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
@@ -454,7 +452,7 @@ ALTER TABLE `gambar_menu`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `keluhan`

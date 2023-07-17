@@ -103,6 +103,7 @@ class C_pasien extends CI_Controller
         $keluhan         = $this->input->post('keluhan');
         $diagnosa        = $this->input->post('diagnosa');
         $intervensi      = $this->input->post('intervensi');
+        $harga_teraphy   = $this->input->post('harga_teraphy');
         $terapi_ke       = $this->input->post('terapi_ke');
         $total_harga     = $this->input->post('total_harga');
 
@@ -133,6 +134,7 @@ class C_pasien extends CI_Controller
             'keluhan'          => $keluhan_arr,
             'diagnosa'         => $diagnosa,
             'intervensi'       => $teraphy_arr,
+            'harga_teraphy'    => $harga_teraphy,
             'terapi_ke'        => $terapi_ke,
             'status_transaksi' => 0,
             'total_harga'      => $total_harga,

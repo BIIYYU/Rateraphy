@@ -26,16 +26,18 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <form action="<?= base_url() ?>C_transaksi_selesai/filterLaporantransaksi" method="POST">
-                                <label class=" form-control-label">Tanggal Awal</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                    <label class=" form-control-label">Tanggal Awal</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                        </div>
+                                        <input class="form-control" placeholder="Start date" name="startDate" type="date" required>
                                     </div>
-                                    <input class="form-control" placeholder="Start date" name="startDate" type="date" required>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -72,7 +74,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-lg-12">
+                <div class="col-lg-12">
+                    <!-- <?= $this->session->flashdata('message'); ?> -->
                     <div class="table-responsive">
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">
                             <thead class="thead-dark">
@@ -103,8 +106,8 @@
                                         <td><?= $dt_booking['intervensi'] ?></td>
                                         <td>Rp. <?= number_format($dt_booking['total_harga'], 0, ',', '.')  ?></td>
                                         <td>
-                                            <a href="<?php base_url() ?>C_transaksi_selesai/detail/<?= $dt_booking['id_invoice'] ?>" class="btn btn-sm btn-warning"></i>Detail</a>
-                                            <a href="<?php base_url() ?>C_transaksi_selesai/cetakNotatransaksi/<?= $dt_booking['id_invoice'] ?>" target="_blank" class="btn btn-sm btn-danger"><i class="fa fa-print"></i> Cetak Nota</a>
+                                            <a href="<?= base_url() ?>C_transaksi_selesai/detail/<?= $dt_booking['id_invoice'] ?>" class="btn btn-sm btn-warning"></i>Detail</a>
+                                            <a href="<?= base_url() ?>C_transaksi_selesai/cetakNotatransaksi/<?= $dt_booking['id_invoice'] ?>" target="_blank" class="btn btn-sm btn-danger"><i class="fa fa-print"></i> Cetak Nota</a>
                                         </td>
                                     </tr>
                                 <?php
@@ -113,7 +116,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

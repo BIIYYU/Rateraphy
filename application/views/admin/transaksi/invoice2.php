@@ -12,36 +12,33 @@
 </head>
 
 <?php foreach($intervensi as $dt_invoice){
-    $teraphy = $dt_invoice['terteraphy'];
+    $teraphy = $dt_invoice['teraphy'];
 } ?>
 
 <body>
     <div id="invoice">
         <div class="invoice overflow-auto">
-            <div style="min-width: 600px">
+            <div style="min-width: 100%">
                 <header>
                     <div class="row">
-                        <div class="col">
-                        </div>
-                        <div class="col company-details">
-                            <h2 class="name">
-                                <?= $nama_usaha ?>
-                            </h2>
-                            <div><?= $alamat ?></div>
+                        <img style="width:60px;height:80px;"  src="<?= base_url() ?>assets/auth/images/icon.png">
+                        <div class="col-md-10 company-details">
+                            <h2 class="text-left name"><?= $nama_usaha ?></h2>
+                            <h6 class="text-left name"><?= $alamat ?></h6>
                         </div>
                     </div>
                 </header>
                 <main>
                     <div class="row contacts">
                         <div class="col invoice-details">
-                            <h1 class="invoice-id"><?= $book->id_invoice ?></h1>
+                            <!-- <h1 class="invoice-id"><?= $book->id_invoice ?></h1> -->
                             <div class="date">Tanggal Transaksi: <?= date("d-m-Y", strtotime($book->tanggal_teraphy))  ?></div>
                             <div class="date">Jam Transaksi: <?php date_default_timezone_set('Asia/Jakarta');
                                                                 echo date('H:i:s'); ?></div>
                         </div>
                     </div>
                     <table border="0" cellspacing="0" cellpadding="0">
-                        <thead>
+                        <!-- <thead>
                             <tr>
                                 <th class="text-left">Nama Pasien</th>
                                 <th class="text-left">Umur</th>
@@ -49,7 +46,7 @@
                                 <th class="text-left">Alamat</th>
                                 <th class="text-left">Keluhan</th>
                             </tr>
-                        </thead>
+                        </thead> -->
                         <tbody>
                             <?php
                             $no = 0;
@@ -57,32 +54,50 @@
                                 $no++; ?>
                                 <!-- // $harga_satuan = $dt_invoice['sub_total'] / $dt_invoice['jumlah']; -->
                                 <tr>
-                                    <td class="text-left"><h3><?= $dt_invoice['nama_pasien'] ?></h3></td>
-                                    <td class="text-left"><?= $dt_invoice['umur'] ?></td>
-                                    <td class="text-left"><?= $dt_invoice['nik'] ?></td>
-                                    <td class="text-left"><?= $dt_invoice['alamat'] ?></td>
-                                    <td class="text-left"><?= $dt_invoice['keluhan'] ?></td>
+                                    <th class="text-left">Nama Pasien</th>
+                                    <td class="text-left"><h3>: <?= $dt_invoice['nama_pasien'] ?></h3></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Umur</th>
+                                    <td class="text-left"><h3>: <?= $dt_invoice['umur'] ?></h3></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">NIK</th>
+                                    <td class="text-left"><h3>: <?= $dt_invoice['nik'] ?></h3></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Alamat</th>
+                                    <td class="text-left"><h3>: <?= $dt_invoice['alamat'] ?></h3></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Keluhan</th>
+                                    <td class="text-left"><h3>: <?= $dt_invoice['keluhan'] ?></h3></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
                         <tfoot>
+                            <tr><td colspan="4"></td></tr>
+                            <tr><td colspan="4"></td></tr>
                             <tr>
-                                <td><h3>Intervensi</h3></td>
-                                <td><h3>Harga</h3></td>
+                                <td class="text-left"><h3>Intervensi</h3></td>
+                                <td class="text-left"><h3>Harga</h3></td>
                             </tr>
                             <?php foreach ($intervensi as $dt_intervensi){ ?>
                                 <tr class="text-left">
-                                    <td><?= $dt_intervensi['terteraphy'] ?></td>
-                                    <td><?= $dt_intervensi['terteraphy'] ?></td>
+                                    <td class="text-left"><?= $dt_intervensi['teraphy'] ?></td>
+                                    <td class="text-left">Rp. <?=number_format($dt_intervensi['harga_teraphy'], 0, ',', '.') ?></td>
                                 </tr>
                             <?php } ?>
-                                    <td colspan="1">Total Biaya</td>
+                            <tr>
+                                    <td colspan="1" class="text-left">Total Biaya</td>
                                 <?php
                                 $TotalHarga = '';
-                                if(isset($invoice->total_harga)){
-                                    $TotalHarga = number_format($book->total_harga, 0, ',', '.');
-                                } ?>
-                                <td>Rp. <?= $TotalHarga; ?></td>
+                                if(isset($invoice)){
+                                    foreach ($invoice as $dt_invoice) {
+                                        $TotalHarga = number_format($dt_invoice['total_harga'], 0, ',', '.');
+                                    } ?>
+                                    <td class="text-left">Rp. <?= $TotalHarga; ?></td>
+                                <?php } ?>
                             </tr>
                         </tfoot>
                     </table>
