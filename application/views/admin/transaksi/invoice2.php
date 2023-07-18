@@ -70,6 +70,10 @@
                                     <td class="text-left"><h3>: <?= $dt_invoice['alamat'] ?></h3></td>
                                 </tr>
                                 <tr>
+                                    <th class="text-left">No HP</th>
+                                    <td class="text-left"><h3>: <?= $dt_invoice['no_hp'] ?></h3></td>
+                                </tr>
+                                <tr>
                                     <th class="text-left">Keluhan</th>
                                     <td class="text-left"><h3>: <?= $dt_invoice['keluhan'] ?></h3></td>
                                 </tr>

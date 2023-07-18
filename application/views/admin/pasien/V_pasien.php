@@ -36,28 +36,32 @@
                                     <th>Umur</th>
                                     <th>NIK</th>
                                     <th>Alamat</th>
+                                    <th>No HP</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $no = 1;
-                                foreach ($pasien as $dt_pasien) {
-                                ?>
-                                    <tr>
-                                        <td><?= $no; ?></td>
-                                        <td><?= $dt_pasien['nama_pasien'] ?></td>
-                                        <td><?= $dt_pasien['umur'] ?></td>
-                                        <td><?= $dt_pasien['nik'] ?></td>
-                                        <td><?= $dt_pasien['alamat'] ?></td>
-                                        <td>
-                                            <a href="<?php base_url() ?>C_pasien/proses/<?= $dt_pasien['id_pasien'] ?>" class="btn btn-sm btn-success">Proses Pasien</a>
-                                            <a href="<?php base_url() ?>C_pasien/edit/<?= $dt_pasien['id_pasien'] ?>" class="btn btn-sm btn-warning"> Edit</a>
-                                            <a href="<?php base_url() ?>C_pasien/delete/<?= $dt_pasien['id_pasien'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus Pasien <?= $dt_pasien['nama_pasien'] ?>?')" class="btn btn-sm btn-danger"> Hapus</a>
-                                        </td>
-                                    </tr>
-                                <?php
-                                    $no++;
+                                if(isset($pasien)){
+                                    foreach ($pasien as $dt_pasien) {
+                                    ?>
+                                        <tr>
+                                            <td><?= $no; ?></td>
+                                            <td><?= $dt_pasien['nama_pasien'] ?></td>
+                                            <td><?= $dt_pasien['umur'] ?></td>
+                                            <td><?= $dt_pasien['nik'] ?></td>
+                                            <td><?= $dt_pasien['alamat'] ?></td>
+                                            <td><?= $dt_pasien['no_hp'] ?></td>
+                                            <td>
+                                                <a href="<?php base_url() ?>C_pasien/proses/<?= $dt_pasien['id_pasien'] ?>" class="btn btn-sm btn-success">Proses Pasien</a>
+                                                <a href="<?php base_url() ?>C_pasien/edit/<?= $dt_pasien['id_pasien'] ?>" class="btn btn-sm btn-warning"> Edit</a>
+                                                <a href="<?php base_url() ?>C_pasien/delete/<?= $dt_pasien['id_pasien'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus Pasien <?= $dt_pasien['nama_pasien'] ?>?')" class="btn btn-sm btn-danger"> Hapus</a>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        $no++;
+                                    }
                                 }
                                 ?>
                             </tbody>
@@ -89,6 +93,8 @@
                             <input type="number" class="form-control" placeholder="" name="nik" required|numeric>
                             <label>Alamat</label>
                             <textarea class="form-control" placeholder="" name="alamat" required></textarea>
+                            <label>No HP</label>
+                            <input type="number" class="form-control" placeholder="" name="no_hp" numeric>
                         </div>
                 </div>
                 <div class="modal-footer">

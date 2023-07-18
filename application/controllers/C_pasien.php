@@ -52,6 +52,7 @@ class C_pasien extends CI_Controller
         $this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
         $this->form_validation->set_rules('umur', 'umur', 'required');
         $this->form_validation->set_rules('alamat', 'alamat', 'required');
+        $this->form_validation->set_rules('no_hp', 'no_hp', 'numeric');
         $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
 
         if ($this->form_validation->run() == FALSE) {
@@ -97,6 +98,7 @@ class C_pasien extends CI_Controller
         $nama_pasien     = $this->input->post('nama_pasien');
         $umur            = $this->input->post('umur');
         $alamat          = $this->input->post('alamat');
+        $no_hp           = $this->input->post('no_hp');
         $nik             = $this->input->post('nik');
         $tanggal_teraphy = $this->input->post('tanggal_teraphy');
         $jam_teraphy     = $this->input->post('jam_teraphy');
@@ -128,6 +130,7 @@ class C_pasien extends CI_Controller
             'nama_pasien'      => $nama_pasien,
             'umur'             => $umur,
             'alamat'           => $alamat,
+            'no_hp'            => $no_hp,
             'nik'              => $nik,
             'tanggal_teraphy'  => $tanggal_teraphy,
             'jam_teraphy'      => $jam_teraphy,
@@ -173,6 +176,7 @@ class C_pasien extends CI_Controller
         $this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
         $this->form_validation->set_rules('umur', 'umur', 'required');
         $this->form_validation->set_rules('alamat', 'alamat', 'required');
+        $this->form_validation->set_rules('no_hp', 'no_hp', 'required');
         $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('message_pasien', '<div class="alert alert-danger" role="alert">

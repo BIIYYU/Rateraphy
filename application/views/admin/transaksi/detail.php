@@ -27,18 +27,22 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="row form-group">
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">ID Transaksi : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->id_invoice ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Nama Pasien : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->nama_pasien ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Umur : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->umur ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">NIK : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->nik ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Tanggal Teraphy : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= date("d-m-Y", strtotime($book->tanggal_teraphy))  ?></label></div>
-                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Jam Transaksi : </label></div>
-                        <div class="col-12 col-md-9"> <label><?= $book->jam_teraphy ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">ID Transaksi</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= $book->id_invoice ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Nama Pasien</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= $book->nama_pasien ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Umur</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= $book->umur ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">NIK</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= $book->nik ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Alamat</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= $book->alamat ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">No HP</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= $book->no_hp ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Tanggal Teraphy</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= date("d-m-Y", strtotime($book->tanggal_teraphy))  ?></label></div>
+                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Jam Transaksi</label></div>
+                        <div class="col-12 col-md-9"> <label>: <?= $book->jam_teraphy ?></label></div>
                     </div>
                     <div class="col-lg-12">
                         <div class="row form-group">

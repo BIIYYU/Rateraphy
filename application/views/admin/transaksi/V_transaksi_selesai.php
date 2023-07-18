@@ -65,7 +65,7 @@
                             } else {
                             ?>
 
-                                <a href="<?= base_url() ?>transaksi/cetakLaporantransaksi" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Cetak Semua Data</a>
+                                <!-- <a href="<?= base_url() ?>transaksi/cetakLaporantransaksi" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Cetak Semua Data</a> -->
                             <?php
                             }
                             ?>

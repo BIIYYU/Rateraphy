@@ -40,7 +40,8 @@ class M_pasien extends CI_Model
                 "nama_pasien" => $this->input->post('nama_pasien'),
                 "umur"        => $this->input->post('umur'),
                 "nik"         => $this->input->post('nik'),
-                "alamat"      => $this->input->post('alamat')
+                "alamat"      => $this->input->post('alamat'),
+                "no_hp"       => $this->input->post('no_hp')
             ];
             $this->db->insert('pasien', $data);
         }
@@ -81,7 +82,8 @@ class M_pasien extends CI_Model
             "nama_pasien" => $this->input->post('nama_pasien'),
             "umur"        => $this->input->post('umur'),
             "nik"         => $this->input->post('nik'),
-            "alamat"      => $this->input->post('alamat')
+            "alamat"      => $this->input->post('alamat'),
+            "no_hp"       => $this->input->post('no_hp')
         ];
         $this->db->where('id_pasien', $this->input->post('id_pasien'));
         $this->db->update('pasien', $data);

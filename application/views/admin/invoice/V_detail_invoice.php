@@ -27,11 +27,12 @@
                 </div>
                 <div class="col-lg-12">
                     <?= $this->session->flashdata('message_pasien'); ?>
-                    <form action="<?= base_url() ?>C_pasien/proses_tambah_invoice" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url() ?>C_invoice/prosesEdit" method="post" enctype="multipart/form-data">
                         <?php
-                        // if(isset())
+                        if(isset($invoice)){
                         foreach ($invoice as $dt_invoice) { ?>
                             <input type="hidden" value="<?= $dt_invoice['id_pasien'] ?>" name="id_pasien" id="id_pasien">
+                            <input type="hidden" value="<?= $dt_invoice['id_invoice'] ?>" name="id_invoice" id="id_invoice">
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Nama pasien</label>
                                 <input value="<?= $dt_invoice['nama_pasien'] ?>" type="text" required class="form-control nama_pasien" name="nama_pasien" readonly>
@@ -48,6 +49,10 @@
                                 <label for="textarea-input" class=" form-control-label">Alamat</label>
                                 <input type="text" value="<?= $dt_invoice['alamat'] ?>" class="form-control alamat" name="alamat" readonly>
                             </div>
+                            <div class="form-group">
+                                <label for="textarea-input" class=" form-control-label">No HP</label>
+                                <input type="text" value="<?= $dt_invoice['no_hp'] ?>" class="form-control no_hp" name="no_hp" readonly>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-4 form-group">
                                     <label class="form-control-label">Tanggal Teraphy</label>
@@ -60,8 +65,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Keluhan</label>
-                                    <select class="form-control select2" multiple name="keluhan[]" placeholder="Pilih">
-                                        <option value="<?= $dt_invoice['keluhan']; ?>"><?= $dt_invoice['keluhan']; ?></option>
+                                    <select class="form-control select2" multiple name="keluhan[]" id="list_keluhan" placeholder="Pilih">
+                                        <!-- <option value="<?= $dt_invoice['keluhan']; ?>"><?= $dt_invoice['keluhan']; ?></option> -->
                                     </select>
                             </div>
                             <div class="form-group">
@@ -70,7 +75,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Intervensi</label>
-                                <input value="<?= $dt_invoice['intervensi'] ?>" type="text"  class="form-control" name="intervensi" placeholder="Intervensi" required>
+                                  <select class="form-control select2" multiple name="intervensi[]" id="list_teraphy" placeholder="Pilih">
+                                        <!-- <option value="<?= $dt_invoice['intervensi']; ?>"><?= $dt_invoice['intervensi']; ?></option> -->
+                                    </select>
+                                <!-- <input value="<?= $dt_invoice['intervensi'] ?>" type="text"  class="form-control" id="list_teraphy" name="intervensi" placeholder="Intervensi" required> -->
                             </div>
                             <div class="form-group">
                                 <label for="textarea-input" class=" form-control-label">Terapi Ke</label>
@@ -81,6 +89,7 @@
                                 <input value="<?= $dt_invoice['total_harga'] ?>" type="number" class="form-control" name="total_harga" placeholder="Total Harga" readonly>
                             </div>
                         <?php }
+                        }
                         ?>
                         
                          <div class="text-center mb-3">
@@ -106,6 +115,7 @@
                                             <th>Umur</th>
                                             <th>NIK</th>
                                             <th>Tanggal Teraphy</th>
+                                            <th>No HP</th>
                                             <th>Keluhan</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -113,21 +123,24 @@
                                     <tbody>
                                         <?php
                                         $no = 0;
-                                        foreach ($invoice as $dt_invoice) {
-                                            $no++;
-                                        ?>
-                                            <tr>
-                                                <td><?= $no; ?></td>
-                                                <td><?= $dt_invoice['nama_pasien'] ?></td>
-                                                <td><?= $dt_invoice['umur'] ?></td>
-                                                <td><?= $dt_invoice['nik'] ?></td>
-                                                <td><?= $dt_invoice['tanggal_teraphy'] ?></td>
-                                                <td><?= $dt_invoice['keluhan'] ?></td>
-                                                <td>
-                                                    <a href="<?php base_url() ?>C_invoice/proses/<?= $dt_invoice['id_invoice'] ?>" class="btn btn-sm btn-success">Lihat Detail</a>
-                                                </td>
-                                            </tr>
-                                        <?php
+                                        if(isset($invoice)){
+                                            foreach ($invoice as $dt_invoice) {
+                                                $no++;
+                                            ?>
+                                                <tr>
+                                                    <td><?= $no; ?></td>
+                                                    <td><?= $dt_invoice['nama_pasien'] ?></td>
+                                                    <td><?= $dt_invoice['umur'] ?></td>
+                                                    <td><?= $dt_invoice['nik'] ?></td>
+                                                    <td><?= $dt_invoice['tanggal_teraphy'] ?></td>
+                                                    <td><?= $dt_invoice['no_hp'] ?></td>
+                                                    <td><?= $dt_invoice['keluhan'] ?></td>
+                                                    <td>
+                                                        <a href="<?= base_url() ?>C_invoice/proses/<?= $dt_invoice['id_invoice'] ?>" class="btn btn-sm btn-success">Lihat Detail</a>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
                                         }
                                         ?>
                                     </tbody>
@@ -145,31 +158,77 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-
         GetKeluhan();
     });
 
     function GetKeluhan() {
-    
-        let id = $('#id_pasien').val();
 
-        console.log(id)
+        let id_invoice = $('#id_invoice').val();
+
         $.ajax({
-        type: 'GET',
+        type: 'POST',
             url: `<?= base_url() ?>C_invoice/getDataKeluhan/`,
             dataType: 'json',
-            data: id,
+            data: {id_invoice},
             success: function(hasil) {
-                let isi = '';
-                if(hasil.length > 0){
-                    $.each(hasil, function(key, item){
-                        isi +=`<option value="${item.keluhan}">${item.keluhan}</option>`;
-                    });
-                }
-                // console.log(isi)
+                if(hasil.status == true){
+                    let isi = '';
+                    $.map(JSON.parse('<?= json_encode($keluhan) ?>'), function (value, key) {
+                        let list_opsi_selected = '';
+                        // console.log(hasil.data[0].keluhan.split(','))
 
-                $('#list_keluhan').empty().append(isi);
-            }
+                        $.map(hasil.data[0].keluhan.split(','), function (valSelected, key) {
+                            if (value.keluhan == valSelected) {
+                                list_opsi_selected = 'selected';
+                                return false;
+                            }
+                        });
+                        isi += `<option value="${value.keluhan}" ${list_opsi_selected}>${value.keluhan}</option>`;
+
+                        // console.log(hasil.data[0].keluhan.split(','))
+                    });
+
+                    $('#list_keluhan').empty().append(isi);
+                }
+            },
+            error: function () {
+                alert("Fail")
+            },
+        });
+        GetTeraphy();
+    }
+
+    function GetTeraphy() {
+
+        let id_invoice = $('#id_invoice').val();
+
+        $.ajax({
+        type: 'POST',
+            url: `<?= base_url() ?>C_invoice/getDataTeraphy/`,
+            dataType: 'json',
+            data: {id_invoice},
+            success: function(hasil) {
+                if(hasil.status == true){
+                    let isi = '';
+                    $.map(JSON.parse('<?= json_encode($teraphy) ?>'), function (value, key) {
+                        let list_opsi_selected = '';
+                        // console.log(value.nama_teraphy)
+                        $.map(hasil.data[0].intervensi.split(','), function (valSelected, key) {
+                            if (value.teraphy == valSelected) {
+                                list_opsi_selected = 'selected';
+                                return false;
+                            }
+                        });
+                        isi += `<option value="${value.nama_teraphy}" ${list_opsi_selected}>${value.nama_teraphy}</option>`;
+
+                    });
+
+                    $('#list_teraphy').empty().append(isi);
+                }
+            },
+            error: function () {
+                alert("Fail")
+            },
         });
     }
 

@@ -29,7 +29,7 @@
                     <?= $this->session->flashdata('message_pasien'); ?>
                     <form action="<?= base_url() ?>C_pasien/proses_tambah_invoice" method="post" enctype="multipart/form-data">
                         <?php
-                        // if(isset())
+                        if(isset($pasien)){
                         foreach ($pasien as $dt_pasien) { ?>
                             <input type="hidden" value="<?= $dt_pasien['id_pasien'] ?>" name="id_pasien">
                             <div class="form-group">
@@ -48,7 +48,12 @@
                                 <label for="textarea-input" class=" form-control-label">Alamat</label>
                                 <input type="text" value="<?= $dt_pasien['alamat'] ?>" class="form-control alamat" name="alamat" readonly>
                             </div>
+                            <div class="form-group">
+                                <label for="textarea-input" class=" form-control-label">No HP</label>
+                                <input value="<?= $dt_pasien['no_hp'] ?>" type="number" min="0" required class="form-control no_hp" name="no_hp" placeholder="No HP" readonly>
+                            </div>
                         <?php }
+                        }
                         ?>
                         <div class="row">
                             <div class="col-lg-4 form-group">
@@ -80,7 +85,7 @@
                                     <option data-price="<?= $dt_teraphy['harga']?>" value="<?= $dt_teraphy['nama_teraphy']; ?>"><?= $dt_teraphy['nama_teraphy']; ?> | <?= $harga; ?></option>
                                 <?php } ?>
                             </select>
-                                <input type="text" class="form-control" name="harga_teraphy" id="harga_teraphy" value="" >
+                                <input type="hidden" class="form-control" name="harga_teraphy" id="harga_teraphy" value="" >
                             </div>
                         <div class="form-group">
                             <label for="textarea-input" class=" form-control-label">Terapi Ke</label>
@@ -113,6 +118,7 @@
                                                 <th>Umur</th>
                                                 <th>NIK</th>
                                                 <th>Alamat</th>
+                                                <th>No HP</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -128,6 +134,7 @@
                                                     <td><?= $riwayat_invoice['umur'] ?></td>
                                                     <td><?= $riwayat_invoice['nik'] ?></td>
                                                     <td><?= $riwayat_invoice['alamat'] ?></td>
+                                                    <td><?= $riwayat_invoice['no_hp'] ?></td>
                                                     <td>
                                                         <a href="<?php base_url() ?>C_pasien/proses/<?= $riwayat_invoice['id_invoice'] ?>" class="btn btn-sm btn-success">Lihat Detail</a>
                                                     </td>

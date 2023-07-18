@@ -47,6 +47,10 @@
                                 <label for="textarea-input" class=" form-control-label">Alamat</label>
                                 <textarea rows="9" class="form-control" name="alamat" placeholder="Alamat" required><?= $dt_pasien['alamat'] ?></textarea>
                             </div>
+                            <div class="form-group">
+                                <label for="textarea-input" class=" form-control-label">No HP</label>
+                                <input value="<?= $dt_pasien['no_hp'] ?>" type="number" min="0" class="form-control" name="no_hp" placeholder="No HP">
+                            </div>
                             <div class="text-center mb-3">
                                 <a href="<?= base_url() ?>C_pasien" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Back</a>
                                 <button type="submit" class="btn btn-success btn-sm">Edit Data</button>

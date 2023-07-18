@@ -36,6 +36,8 @@ class C_invoice extends CI_Controller
         }
         $data['title'] = 'Daftar Riwayat Pemesanan';
         $data['invoice'] = $this->M_invoice->getAllinvoice();
+        $data['keluhan'] = $this->M_invoice->getAllKeluhan();
+        $data['teraphy'] = $this->M_invoice->getTeraphy();
         
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
@@ -46,12 +48,10 @@ class C_invoice extends CI_Controller
 
     function getDataKeluhan()
     {
-        // $lineID         = $this->input->post('headerid');
-        
-        $id_pasien    = $this->input->post('id_pasien');
-        $data_keluhan = $this->M_invoice->getkeluhan_id($id_pasien);
+        $id_invoice   = $this->input->post('id_invoice');
+        $data_keluhan = $this->M_invoice->getkeluhan_id($id_invoice);
 
-        print_r($id_pasien); exit();
+        // print_r($id_invoice); exit();
         if (count($data_keluhan) > 0) {
             $result = array(
                 'status'  => true,
@@ -70,10 +70,36 @@ class C_invoice extends CI_Controller
         echo json_encode($result);
     }
 
+    function getDataTeraphy()
+    {
+        $id_invoice   = $this->input->post('id_invoice');
+        $data_teraphy = $this->M_invoice->getTeraphy_id($id_invoice);
+
+        // print_r($id_invoice); exit();
+        if (count($data_teraphy) > 0) {
+            $result = array(
+                'status'  => true,
+                'vstatus' => 'berhasil',
+                'pesan'   => "Berhasil Memuat data!",
+                'data'    => $data_teraphy,
+            );
+        } else {
+            $result = array(
+                'status'  => false,
+                'vstatus' => 'gagal',
+                'pesan'   => "Data detail tidak ditemukan!!!",
+            );
+        }
+
+        echo json_encode($result);
+    }
+
     public function proses($id)
     {
         $data['title']   = 'Proses Invoice';
         $data['invoice'] = $this->M_invoice->getInvoiceByID($id);
+        $data['keluhan'] = $this->M_invoice->getAllKeluhan();
+        $data['teraphy'] = $this->M_invoice->getTeraphy();
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
@@ -85,6 +111,8 @@ class C_invoice extends CI_Controller
     {
         $data['title'] = 'Detail & Konfirmasi';
         $data['invoice'] = $this->M_invoice->getinvoiceById($id);
+        $data['keluhan'] = $this->M_invoice->getAllKeluhan();
+        $data['teraphy'] = $this->M_invoice->getTeraphy();
         $this->load->view('admin/layout/header', $data);
         $this->load->view('admin/layout/side');
         $this->load->view('admin/layout/side-header');
@@ -99,6 +127,7 @@ class C_invoice extends CI_Controller
         $nama_pasien     = $this->input->post('nama_pasien');
         $umur            = $this->input->post('umur');
         $alamat          = $this->input->post('alamat');
+        $no_hp           = $this->input->post('no_hp');
         $nik             = $this->input->post('nik');
         $tanggal_teraphy = $this->input->post('tanggal_teraphy');
         $jam_teraphy     = $this->input->post('jam_teraphy');
@@ -124,21 +153,27 @@ class C_invoice extends CI_Controller
         }
 
         $data = [
-            "id_pasien"        => $id_pasien,
-            "nama_pasien"      => $nama_pasien,
-            "umur"             => $umur,
-            "alamat"           => $alamat,
-            "nik"              => $nik,
-            "tanggal_teraphy"  => $tanggal_teraphy,
-            "jam_teraphy"      => $jam_teraphy,
-            "keluhan"          => $keluhan,
-            "diagnosa"         => $diagnosa,
-            "intervensi"       => $intervensi,
-            "terapi_ke"        => $terapi_ke,
+            // "id_pasien"        => $id_pasien,
+            // "nama_pasien"      => $nama_pasien,
+            // "umur"             => $umur,
+            // "alamat"           => $alamat,
+            // "nik"              => $nik,
+            // "tanggal_teraphy"  => $tanggal_teraphy,
+            // "jam_teraphy"      => $jam_teraphy,
+            // "keluhan"          => $keluhan,
+            // "diagnosa"         => $diagnosa,
+            // "intervensi"       => $intervensi,
+            // "terapi_ke"        => $terapi_ke,
             "status_transaksi" => 1,
         ];
 
-        $this->M_invoice->komplit($data, $id_invoice);
+        
+        // echo "<pre>";
+        // print_r ($id);
+        // echo "</pre>";exit();
+        
+
+        $this->M_invoice->komplit($data, $id);
 
         echo "<script>alert('Data berhasil dikomplit !');</script>";
         redirect('C_invoice');
@@ -147,19 +182,29 @@ class C_invoice extends CI_Controller
 
     public function prosesEdit()
     {
-        $this->form_validation->set_rules('total_sudah_dibayar', 'total_sudah_dibayar', 'required|numeric');
-        $this->form_validation->set_rules('status_invoice', 'status_invoice', 'required');
+        $this->form_validation->set_rules('nama_pasien', 'nama_pasien', 'required');
+        $this->form_validation->set_rules('umur', 'umur', 'required');
+        $this->form_validation->set_rules('alamat', 'alamat', 'required');
+        $this->form_validation->set_rules('no_hp', 'no_hp', 'required');
+        $this->form_validation->set_rules('nik', 'nik', 'required|numeric');
+        $this->form_validation->set_rules('tanggal_teraphy', 'tanggal_teraphy', 'required');
+        $this->form_validation->set_rules('jam_teraphy', 'jam_teraphy', 'required');
+        $this->form_validation->set_rules('keluhan', 'keluhan');
+        $this->form_validation->set_rules('diagnosa', 'diagnosa');
+        $this->form_validation->set_rules('intervensi', 'intervensi');
+        $this->form_validation->set_rules('harga_teraphy', 'harga_teraphy', 'numeric');
+        $this->form_validation->set_rules('terapi_ke', 'terapi_ke', 'numeric');
+        $this->form_validation->set_rules('total_harga', 'total_harga', 'numeric');
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('message_invoice', '<div class="alert alert-danger" role="alert">
-            Gagal Mengkonfirmasi invoice
+            $this->session->set_flashdata('message_edit_invoice', '<div class="alert alert-danger" role="alert">
+            Gagal Mengedit Pasien
            </div>');
-            redirect('invoice');
+            redirect('C_invoice');
         } else {
             $this->M_invoice->edit();
-            $this->session->set_flashdata('message_invoice', '<div class="alert alert-success" role="alert">
-           Sukses Mengkonfirmasi invoice
-          </div>');
-            redirect('invoice');
+            $this->session->set_flashdata('message_edit_invoice', '<div class="alert alert-success" role="alert">Sukses Mengedit Pasien</div>');
+            // echo "<script>alert('Data berhasil diedit !');</script>";
+            redirect('C_invoice');
         }
     }
 
