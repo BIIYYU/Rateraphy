@@ -167,17 +167,11 @@ class C_invoice extends CI_Controller
             "status_transaksi" => 1,
         ];
 
-        
-        // echo "<pre>";
-        // print_r ($id);
-        // echo "</pre>";exit();
-        
-
         $this->M_invoice->komplit($data, $id);
 
-        echo "<script>alert('Data berhasil dikomplit !');</script>";
+        $this->session->set_flashdata('meesage_komplit', '<div class="alert alert-success" role="alert">Data Berhasil Dikomplit</div>');
+        // echo "<script>alert('Data berhasil dikomplit !');</script>";
         redirect('C_invoice');
-
     }
 
     public function prosesEdit()

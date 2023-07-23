@@ -25,8 +25,12 @@
                     <h3 class="mb-0">Riwayat Transaksi</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message_edit_invoice'); ?>
-                    <?= $this->session->flashdata('message_invoice'); ?>
+                    <div class="flash-message">
+                        <?= $this->session->flashdata('message_edit_invoice'); ?>
+                        <?= $this->session->flashdata('message_invoice'); ?>
+                        <?= $this->session->flashdata('message_tambah_invoice'); ?>
+                        <?= $this->session->flashdata('meesage_komplit'); ?>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">
                             <thead class="thead-dark">
@@ -72,35 +76,12 @@
     </div>
 </div>
 
-<!-- Edit Modal
-<div class="modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Bukti Pembayaran<span id="nomor_invoice_title"></span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <img id="buktipembayaran" name="buktipembayaran" src="<?php echo base_url('assets/dataresto/invoice/' . $mk['bukti_pembayaran']) ?>" width="40%" />
-            </div>
-            
-        </div>
-    </div>
-</div>
 
 <script>
-    function detail(id) {
-        $.ajax({
-            type: 'POST',
-            url: `<?= base_url() ?>pembayaran/get_invoice_by_id/${id}`,
-            dataType: 'json',
-            success: (hasil) => {
-              
-                $('#buktipembayaran').attr("src", response.buktipembayaran);
-                $('#viewModal').modal("show");
-            }
-        });
-    }
-</script> --> 
+   $(document).ready(function(){
+        
+    let flashmessage = $('.flash-message');
+    flashmessage.delay(5000).fadeOut(400);
+
+   });
+</script>

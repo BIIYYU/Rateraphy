@@ -26,7 +26,9 @@
                     <h3 class="mb-0">Invoice</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message_pasien'); ?>
+                    <div class="flash-message">
+                        <?= $this->session->flashdata('message_pasien'); ?>
+                    </div>
                     <form action="<?= base_url() ?>C_invoice/prosesEdit" method="post" enctype="multipart/form-data">
                         <?php
                         if(isset($invoice)){
@@ -159,6 +161,10 @@
 
     $(document).ready(function(){
         GetKeluhan();
+
+    let flashmessage = $('.flash-message');
+    flashmessage.delay(5000).fadeOut(400);
+    
     });
 
     function GetKeluhan() {
@@ -175,7 +181,7 @@
                     let isi = '';
                     $.map(JSON.parse('<?= json_encode($keluhan) ?>'), function (value, key) {
                         let list_opsi_selected = '';
-                        // console.log(hasil.data[0].keluhan.split(','))
+                        console.log(hasil.data[0].keluhan.split(','))
 
                         $.map(hasil.data[0].keluhan.split(','), function (valSelected, key) {
                             if (value.keluhan == valSelected) {
@@ -212,14 +218,14 @@
                     let isi = '';
                     $.map(JSON.parse('<?= json_encode($teraphy) ?>'), function (value, key) {
                         let list_opsi_selected = '';
-                        // console.log(value.nama_teraphy)
+                        console.log(hasil.data[0].intervensi.split(','))
                         $.map(hasil.data[0].intervensi.split(','), function (valSelected, key) {
-                            if (value.teraphy == valSelected) {
+                            if (value.nama_teraphy == valSelected) {
                                 list_opsi_selected = 'selected';
                                 return false;
                             }
                         });
-                        isi += `<option value="${value.nama_teraphy}" ${list_opsi_selected}>${value.nama_teraphy}</option>`;
+                        isi += `<option value="${value.nama_teraphy}" ${list_opsi_selected}>${value.nama_teraphy} | ${value.harga}</option>`;
 
                     });
 

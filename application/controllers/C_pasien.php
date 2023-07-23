@@ -150,11 +150,11 @@ class C_pasien extends CI_Controller
         $cekhead = $this->model->cek_invoice($id_pasien, $nama_pasien, $nik, $tanggal_teraphy, $jam_teraphy);
 
         if($cekhead->num_rows() > 0 ){
-            $this->session->set_flashdata('message_pasien', '<div class="alert alert-danger" role="alert">Data Tanggal ='. $tanggal_teraphy .', Pasien = '.$nama_pasien.' , NIK = '.$nik.' Sudah Pernah disimpan sebelumnya</div>');
+            $this->session->set_flashdata('message_tambah_invoice', '<div class="alert alert-danger" role="alert">Data Tanggal ='. $tanggal_teraphy .', Pasien = '.$nama_pasien.' , NIK = '.$nik.' Sudah Pernah disimpan sebelumnya</div>');
             redirect('C_pasien');
         } else 
             $this->model->proses_invoice($data);
-            // $this->session->set_flashdata('message_pasien', '<div class="alert alert-success" role="alert">Sukses Menambah Data Invoice</div>');
+            $this->session->set_flashdata('message_tambah_invoice', '<div class="alert alert-success" role="alert">Sukses Menambah Data Invoice</div>');
             echo "<script>alert('Data berhasil disimpan !');</script>";
             redirect('C_invoice');
         

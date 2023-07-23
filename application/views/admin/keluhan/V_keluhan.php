@@ -25,7 +25,9 @@
                     <h3 class="mb-0">Tabel Keluhan</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message_keluhan'); ?>
+                    <div class="flash-message">
+                        <?= $this->session->flashdata('message_keluhan'); ?>
+                    </div>
                     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah_keluhan_modal"><i class="fa fa-plus"></i> Tambah keluhan</button>
                     <div class="table-responsive">
                         <table class="table table-flush dataTable" id="datatable-id" role="grid" aria-describedby="datatable-basic_info">
@@ -86,3 +88,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            let flashmessage = $('.flash-message');
+            flashmessage.delay(5000).fadeOut(400);
+       });
+    </script>

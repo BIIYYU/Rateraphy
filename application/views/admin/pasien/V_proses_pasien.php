@@ -26,7 +26,10 @@
                     <h3 class="mb-0">Proses Pasien</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message_pasien'); ?>
+                    <div class="flash-message">
+
+                        <?= $this->session->flashdata('message_pasien'); ?>
+                    </div>
                     <form action="<?= base_url() ?>C_pasien/proses_tambah_invoice" method="post" enctype="multipart/form-data">
                         <?php
                         if(isset($pasien)){
@@ -160,6 +163,10 @@
     $(document).ready(function(){
 
         // GetKeluhan();
+
+        let flashmessage = $('.flash-message');
+        flashmessage.delay(5000).fadeOut(400);
+
 
     });
 

@@ -26,7 +26,9 @@
                     <h3 class="mb-0">Edit keluhan</h3>
                 </div>
                 <div class="col-lg-12">
-                    <?= $this->session->flashdata('message_keluhan'); ?>
+                    <div class="flash-message">
+                        <?= $this->session->flashdata('message_keluhan'); ?>
+                    </div>
                     <form action="<?= base_url() ?>C_keluhan/prosesEdit" method="post" enctype="multipart/form-data">
                         <?php
                         foreach ($keluhan as $dt_keluhan) { ?>
@@ -47,3 +49,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        let flashmessage = $('.flash-message');
+        flashmessage.delay(5000).fadeOut(400);
+       });
+</script>
